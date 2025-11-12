@@ -1,0 +1,3096 @@
+{
+  "software": "CSPro", 
+  "version": 8.0, 
+  "fileType": "dictionary", 
+  "name": "DICO_STIGMA_DICT", 
+  "labels": [ { "text": "dico_stigma" } ], 
+  "security": {
+    "allowDataViewerModifications": true, 
+    "allowExport": true, 
+    "cachedPasswordMinutes": 0, 
+    "settings": "55603be4eadd10cbf060607bcfb5b28e6ce74959b5789f97923e8c6ac7d0e9d8"
+  }, 
+  "readOptimization": true, 
+  "recordType": {
+    "start": 1, 
+    "length": 1
+  }, 
+  "defaults": {
+    "decimalMark": true, 
+    "zeroFill": false
+  }, 
+  "relativePositions": true, 
+  "levels": [
+    {
+      "name": "DICO_STIGMA_LEVEL", 
+      "labels": [ { "text": "dico_stigma Level" } ], 
+      "ids": {
+        "items": [
+          {
+            "name": "OPERATOR_ID", 
+            "labels": [ { "text": "Enquêteur" } ], 
+            "contentType": "alpha", 
+            "start": 2, 
+            "length": 4
+          }, 
+          {
+            "name": "CODE", 
+            "labels": [ { "text": "Code" } ], 
+            "contentType": "alpha", 
+            "start": 6, 
+            "length": 14
+          }, 
+          {
+            "name": "NUM_QUESTIONNAIRE", 
+            "labels": [ { "text": "Numero questionnaire" } ], 
+            "contentType": "numeric", 
+            "start": 20, 
+            "length": 4, 
+            "zeroFill": true
+          }
+        ]
+      }, 
+      "records": [
+        {
+          "name": "SECTION1", 
+          "labels": [ { "text": "SECTION 1: Caractéristiques socio-démographiques" } ], 
+          "recordType": "2", 
+          "occurrences": {
+            "required": true, 
+            "maximum": 1
+          }, 
+          "items": [
+            {
+              "name": "SEXE", 
+              "labels": [ { "text": "Q4- Sexe" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "capture": {
+                "type": "radioButton"
+              }, 
+              "valueSets": [
+                {
+                  "name": "SEXE_VS1", 
+                  "labels": [ { "text": "Q4- Sexe" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Masculin" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Féminin" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "AGE", 
+              "labels": [ { "text": "Q5- Age" } ], 
+              "contentType": "numeric", 
+              "length": 2, 
+              "zeroFill": false, 
+              "capture": {
+                "type": "numberPad"
+              }
+            }, 
+            {
+              "name": "NIV_EDUC", 
+              "labels": [ { "text": "Q6- Niveau d'éducation" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "NIV_EDUC_VS1", 
+                  "labels": [ { "text": "Q6- Niveau d'éducation" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Pas d'éducation formelle" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Ecole primaire / Elémentaire / Equivalent local" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Ecole secondaire / Lycée / Equivalent local" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Ecole de métier / Formation professionnelle" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Université / Enseignement supérieur" } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "NB_PERS_CHARGE", 
+              "labels": [ { "text": "Q7- Nombre de personne à charge vivant dans le ménage" } ], 
+              "contentType": "numeric", 
+              "length": 2, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "CATEGORIE", 
+              "labels": [ { "text": "Q8- Catégorie d'enquêté" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "CATEGORIE_VS1", 
+                  "labels": [ { "text": "Q8- Catégorie d'enquêté" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Personnel de défense (Militaire, gendarme)" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Paramilitaire" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Civil" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "SITUATION_PROF", 
+              "labels": [ { "text": "Q9- Situation professionnelle" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "SITUATION_PROF_VS1", 
+                  "labels": [ { "text": "Q9- Situation professionnelle" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Employé" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Indépendant ou entrepreneur" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Retraité" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Sans emploi" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "TEMPS_TRAVAIL", 
+              "labels": [ { "text": "Q10- Temps de travail" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "TEMPS_TRAVAIL_VS1", 
+                  "labels": [ { "text": "Q10- Temps de travail" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Travail à temps plein" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Travail à temps partiel" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "REL_INTIME_ACTU", 
+              "labels": [ { "text": "Q11- Etes-vous dans une relation intime/sexuelle actuellement ?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "REL_INTIME_ACTU_VS1", 
+                  "labels": [ { "text": "Q11- Etes-vous dans une relation intime/sexuelle actuellement ?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas de reponse" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "PARTENAIRE_PVVIH", 
+              "labels": [ { "text": "Q12- Votre partenaire ou l'un(e) ou l'autre de vos partenaires vit-il/elle avec les VIH ?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "PARTENAIRE_PVVIH_VS1", 
+                  "labels": [ { "text": "Q12- Votre partenaire ou l'un(e) ou l'autre de vos partenaires vit-il/elle avec les VIH ?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Oui, mon/ma/mes partenaire(s) a/ont aussi le VIH" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non, mon/ma/mes partenaire(s) n'a/n'ont pas le VIH" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Incertain(e) du statut sérologique de mon/ma/mes partenaire(s)" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Ne s'applique pas" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "GRP_SOUTIEN_VIH", 
+              "labels": [ { "text": "Q13- Faites-vous partie d'un groupe de soutien et/ou d'un réseau de personnes vivant avec le VIH ?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "GRP_SOUTIEN_VIH_VS1", 
+                  "labels": [ { "text": "Q13- Faites-vous partie d'un groupe de soutien et/ou d'un réseau de personnes vivant avec le VIH ?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas de reponse" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "BESOINS_FOND", 
+              "labels": [ { "text": "Q14- Au cours des 12 derniers mois, avez-vous été dans l'incapacité de combler des besoins fondamentaux (manger, boire, dormir, se soigner, etc.) ?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "BESOINS_FOND_VS1", 
+                  "labels": [ { "text": "Q14- Au cours des 12 derniers mois, avez-vous été dans l'incapacité de combler des besoins fondamentaux (manger, boire, dormir, se soigner, etc.) ?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Jamais" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Une partie du temps" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "La plupart du temps" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }, 
+        {
+          "name": "SECTION2", 
+          "labels": [ { "text": "SECTION 2: Interactions avec les services de soins de santé concernant le dépistage et le suivi médical" } ], 
+          "recordType": "3", 
+          "occurrences": {
+            "required": true, 
+            "maximum": 1
+          }, 
+          "items": [
+            {
+              "name": "DECISION_DEPIST", 
+              "labels": [ { "text": "Q15- Était-ce votre choix de vous faire dépister pour le VIH ?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "DECISION_DEPIST_VS1", 
+                  "labels": [ { "text": "Q15- Était-ce votre choix de vous faire dépister pour le VIH ?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non, j’ai été dépisté(e) à mon insu et je ne l’ai su qu’après le test" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non, j’ai été forcé(e) au dépistage du VIH sans mon consentement" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non, je suis né(e) avec le VIH ou je l’ai contracté pendant la petite enfance ou l’enfance, et je ne savais pas qu’on m’avait dépisté(e)" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui, c’était mon choix" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui, mais c’était sous la pression d’autres personnes" } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "RAISON_PRINC", 
+              "labels": [ { "text": "Q16- Quelle est la raison principale pour laquelle vous avez fait un test de dépistage du VIH ?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "RAISON_PRINC_VS1", 
+                  "labels": [ { "text": "Q16- Quelle est la raison principale pour laquelle vous avez fait un test de dépistage du VIH ?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Un prestataire me l’a recommandé, ou on l’a effectué dans le cadre d’autres soins de santé (p. ex., consultation en routine, soins prénatals, circoncision médicale masculine, dépistage/traitement d’IST, PrEP)" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Je croyais être une personne à risque pour le VIH" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Je me sentais malade et j’ai pensé (ou ma famille a pensé) que c’était peut-être lié au VIH" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "C’était une exigence (p. ex., emploi, visa/citoyenneté, incarcération, mariage, pour accéder aux soins prénataux)" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Je voulais savoir tout simplement" } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Autres raisons (suite au décès ou à la maladie de mon/ma partenaire/mon enfant ; suite à un viol ; suite à l'auto test ; test de grossesse ; lors du don de sang ; suite à la tuberculose, suite à ou dans le cadre d’un programme communautaire…)" } ], 
+                      "pairs": [ { "value": "6" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "HESITATION_DEPIST", 
+              "labels": [ { "text": "Q17- Avez-vous hésité à vous faire dépister par peur des réactions des autres (p. ex., amis, famille, employeur ou votre communauté) suite à un éventuel résultat positif ?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "HESITATION_DEPIST_VS1", 
+                  "labels": [ { "text": "Q17- Avez-vous hésité à vous faire dépister par peur des réactions des autres (p. ex., amis, famille, employeur ou votre communauté) suite à un éventuel résultat positif ?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas de reponse" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "DELAI_DEBUT_TTT", 
+              "labels": [ { "text": "Q18- Suite à votre diagnostic de VIH, combien de temps s’est écoulé avant le début du traitement (antirétroviral) ?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "DELAI_DEBUT_TTT_VS1", 
+                  "labels": [ { "text": "Q18- Suite à votre diagnostic de VIH, combien de temps s’est écoulé avant le début du traitement (antirétroviral) ?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": ">1 jour" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": ">1 mois" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": ">6 mois" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Immédiat" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Je ne me souviens pas" } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "ACCES_CV_12M", 
+              "labels": [ { "text": "Q19- Au cours des 12 derniers mois, avez-vous eu accès à la charge virale et le résultat du dernier test de la charge virale était indétectable" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "ACCES_CV_12M_VS1", 
+                  "labels": [ { "text": "Q19- Au cours des 12 derniers mois, avez-vous eu accès à la charge virale et le résultat du dernier test de la charge virale était indétectable" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Je ne sais pas ce qu’est la charge virale ou la suppression virale" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non ; Je n'ai jamais passé de test de charge virale" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non ; je n’ai pas passé de test de la charge virale au cours des 12 derniers mois" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non ; j’ai passé un test de la charge virale et j’attends le résultat" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non ; le virus était détectable/je n’ai pas atteint la suppression virale" } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "6" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "IMPR_ETAT_SANTE", 
+              "labels": [ { "text": "Q20- De manière générale, comment décririez-vous votre santé en ce moment ?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "IMPR_ETAT_SANTE_VS1", 
+                  "labels": [ { "text": "Q20- De manière générale, comment décririez-vous votre santé en ce moment ?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Bonne (excellente, très bonne ou bonne)" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Correcte" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Mauvaise " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "DIAG_TB", 
+              "labels": [ { "text": "Q21.1- Tuberculose (TB)" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "DIAG_TB_VS1", 
+                  "labels": [ { "text": "Q21.1- Tuberculose (TB)" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas de reponse" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "DIAG_HV", 
+              "labels": [ { "text": "Q21.2- Hépatite virale" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "DIAG_HV_VS1", 
+                  "labels": [ { "text": "Q21.2- Hépatite virale" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas de reponse" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "DIAG_IST", 
+              "labels": [ { "text": "Q21.3- Infections sexuellement transmissibles" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "DIAG_IST_VS1", 
+                  "labels": [ { "text": "Q21.3- Infections sexuellement transmissibles" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas de reponse" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "DIAG_TB_MENT", 
+              "labels": [ { "text": "Q21.4- Trouble de santé mentale" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "DIAG_TB_MENT_VS1", 
+                  "labels": [ { "text": "Q21.4- Trouble de santé mentale" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas de reponse" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "DIAG_MNT", 
+              "labels": [ { "text": "Q21.5- Maladie(s) non transmissible(s) (MNT)" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "DIAG_MNT_VS1", 
+                  "labels": [ { "text": "Q21.5- Maladie(s) non transmissible(s) (MNT)" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas de reponse" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "DIAG_IOP", 
+              "labels": [ { "text": "Q21.6- Infections opportunistes" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "DIAG_IOP_VS1", 
+                  "labels": [ { "text": "Q21.6- Infections opportunistes" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas de reponse" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "DIAG_ALC_DRG", 
+              "labels": [ { "text": "Q21.7- Syndromes de dépendance à l'alcool ou aux drogues" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "DIAG_ALC_DRG_VS1", 
+                  "labels": [ { "text": "Q21.7- Syndromes de dépendance à l'alcool ou aux drogues" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas de reponse" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "DIAG_PEC", 
+              "labels": [ { "text": "Q22- Est-ce que les affections diagnostiquées ont été prises en charge ?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "DIAG_PEC_VS1", 
+                  "labels": [ { "text": "Q22- Est-ce que les affections diagnostiquées ont été prises en charge ?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "SOINS_NON_VIH", 
+              "labels": [ { "text": "Q23- Au cours des 12 derniers mois, avez-vous cherché à obtenir des soins de santé pour des besoins non liés au VIH (p. ex., paludisme, grippe, soins dentaires, vaccinations, blessures, etc.) ?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "SOINS_NON_VIH_VS1", 
+                  "labels": [ { "text": "Q23- Au cours des 12 derniers mois, avez-vous cherché à obtenir des soins de santé pour des besoins non liés au VIH (p. ex., paludisme, grippe, soins dentaires, vaccinations, blessures, etc.) ?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "SITE_PEC_VIH", 
+              "labels": [ { "text": "Q24- À quel endroit recevez-vous habituellement vos soins et traitements pour le VIH ?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "SITE_PEC_VIH_VS1", 
+                  "labels": [ { "text": "Q24- À quel endroit recevez-vous habituellement vos soins et traitements pour le VIH ?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Endroits multiples" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Structure sanitaire des Armées" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Etablissements de santé publique" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Clinique ou établissement non gouvernemental (ONG)" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas de réponse" } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "SERV_TTT", 
+              "labels": [ { "text": "Q25.1- Services de traitement du VIH" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "SERV_TTT_VS1", 
+                  "labels": [ { "text": "Q25.1- Services de traitement du VIH" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "SERV_INFO", 
+              "labels": [ { "text": "Q25.2- Informations sur le VIH" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "SERV_INFO_VS1", 
+                  "labels": [ { "text": "Q25.2- Informations sur le VIH" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "SERV_DEP", 
+              "labels": [ { "text": "Q25.3- Services de soins et de dépistage du VIH" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "SERV_DEP_VS1", 
+                  "labels": [ { "text": "Q25.3- Services de soins et de dépistage du VIH" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "SERV_SOUTIEN", 
+              "labels": [ { "text": "Q25.4- Soutien par les pairs (groupes)" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "SERV_SOUTIEN_VS1", 
+                  "labels": [ { "text": "Q25.4- Soutien par les pairs (groupes)" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "SERV_PREV", 
+              "labels": [ { "text": "Q25.5- Services et produits de prévention" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "SERV_PREV_VS1", 
+                  "labels": [ { "text": "Q25.5- Services et produits de prévention" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "SERV_CONSEIL", 
+              "labels": [ { "text": "Q25.6- Conseil en matière d'adhésion au traitement" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "SERV_CONSEIL_VS1", 
+                  "labels": [ { "text": "Q25.6- Conseil en matière d'adhésion au traitement" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "SERV_DOSSIERS", 
+              "labels": [ { "text": "Q25.7- Gestion des dossiers" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "SERV_DOSSIERS_VS1", 
+                  "labels": [ { "text": "Q25.7- Gestion des dossiers" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }, 
+        {
+          "name": "SECTION3", 
+          "labels": [ { "text": "SECTION 3: Expérience de stigmatisation et de discrimination" } ], 
+          "recordType": "4", 
+          "occurrences": {
+            "required": true, 
+            "maximum": 1
+          }, 
+          "items": [
+            {
+              "name": "EXCL_ACT_SOCIAL", 
+              "labels": [ { "text": "Q26.01- Activités ou rencontres sociales (mariages, funérailles, fêtes, clubs)" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "EXCL_ACT_SOCIAL_VS1", 
+                  "labels": [ { "text": "Q26.01- Activités ou rencontres sociales (mariages, funérailles, fêtes, clubs)" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non applicable" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui, dans les 12 derniers mois" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui, mais pas dans les 12 derniers mois" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "EXCL_ACT_RELIG", 
+              "labels": [ { "text": "Q26.02- Activités religieuses ou de lieux de culte" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "EXCL_ACT_RELIG_VS1", 
+                  "labels": [ { "text": "Q26.02- Activités religieuses ou de lieux de culte" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non applicable" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui, dans les 12 derniers mois" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui, mais pas dans les 12 derniers mois" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "EXCL_ACT_FAML", 
+              "labels": [ { "text": "Q26.03- Activités familiales" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "EXCL_ACT_FAML_VS1", 
+                  "labels": [ { "text": "Q26.03- Activités familiales" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non applicable" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui, dans les 12 derniers mois" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui, mais pas dans les 12 derniers mois" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "EXCL_CRIT_FAM", 
+              "labels": [ { "text": "Q26.04- A déjà eu connaissance de remarques discriminatoires ou de commérages à son sujet de la part de membres de sa famille" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "EXCL_CRIT_FAM_VS1", 
+                  "labels": [ { "text": "Q26.04- A déjà eu connaissance de remarques discriminatoires ou de commérages à son sujet de la part de membres de sa famille" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non applicable" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui, dans les 12 derniers mois" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui, mais pas dans les 12 derniers mois" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "EXCL_CRIT_AUTRES", 
+              "labels": [ { "text": "Q26.05- A déjà eu connaissance de remarques discriminatoires ou de commérages à son sujet de la part d’autres personnes (au-delà de sa famille)" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "EXCL_CRIT_AUTRES_VS1", 
+                  "labels": [ { "text": "Q26.05- A déjà eu connaissance de remarques discriminatoires ou de commérages à son sujet de la part d’autres personnes (au-delà de sa famille)" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non applicable" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui, dans les 12 derniers mois" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui, mais pas dans les 12 derniers mois" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "EXCL_HARCEL_VERB", 
+              "labels": [ { "text": "Q26.06- A déjà été harcelé(e) verbalement (p. ex., cris, réprimandes ou autre forme de violence verbale)" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "EXCL_HARCEL_VERB_VS1", 
+                  "labels": [ { "text": "Q26.06- A déjà été harcelé(e) verbalement (p. ex., cris, réprimandes ou autre forme de violence verbale)" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non applicable" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui, dans les 12 derniers mois" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui, mais pas dans les 12 derniers mois" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "EXCL_CHANTAGE", 
+              "labels": [ { "text": "Q26.07- A déjà été victime de chantage" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "EXCL_CHANTAGE_VS1", 
+                  "labels": [ { "text": "Q26.07- A déjà été victime de chantage" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non applicable" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui, dans les 12 derniers mois" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui, mais pas dans les 12 derniers mois" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "EXCL_HARC_PHYS", 
+              "labels": [ { "text": "Q26.08- A déjà été harcelé(e) ou blessé(e) physiquement (p. ex., bousculade, coups ou autre forme de violence corporelle)" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "EXCL_HARC_PHYS_VS1", 
+                  "labels": [ { "text": "Q26.08- A déjà été harcelé(e) ou blessé(e) physiquement (p. ex., bousculade, coups ou autre forme de violence corporelle)" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non applicable" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui, dans les 12 derniers mois" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui, mais pas dans les 12 derniers mois" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "EXCL_REFUS_EMPLOI", 
+              "labels": [ { "text": "Q26.09- A déjà été victime de refus d’un emploi ou a déjà perdu une source de revenus ou un travail" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "EXCL_REFUS_EMPLOI_VS1", 
+                  "labels": [ { "text": "Q26.09- A déjà été victime de refus d’un emploi ou a déjà perdu une source de revenus ou un travail" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non applicable" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui, dans les 12 derniers mois" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui, mais pas dans les 12 derniers mois" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "EXCL_TRAVAIL_POSTE", 
+              "labels": [ { "text": "Q26.10- A été victime de changement de description de son poste ou la nature de son travail a-t-elle changé, ou vous a-t-on déjà refusé une promotion" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "EXCL_TRAVAIL_POSTE_VS1", 
+                  "labels": [ { "text": "Q26.10- A été victime de changement de description de son poste ou la nature de son travail a-t-elle changé, ou vous a-t-on déjà refusé une promotion" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non applicable" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui, dans les 12 derniers mois" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui, mais pas dans les 12 derniers mois" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "EXCL_DISCR_CONJ_ENFTS", 
+              "labels": [ { "text": "Q26.11- Discrimination subi du /de la conjoint(e), du/des partenaire(s) ou de ses enfants" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "EXCL_DISCR_CONJ_ENFTS_VS1", 
+                  "labels": [ { "text": "Q26.11- Discrimination subi du /de la conjoint(e), du/des partenaire(s) ou de ses enfants" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non applicable" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui, dans les 12 derniers mois" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui, mais pas dans les 12 derniers mois" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "STIG_SERV_SAN_REFUS", 
+              "labels": [ { "text": "Q27.1- Refus de services de santé en raison de votre séropositivité" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "STIG_SERV_SAN_REFUS_VS1", 
+                  "labels": [ { "text": "Q27.1- Refus de services de santé en raison de votre séropositivité" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas de reponse" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "STIG_PAS_RAPPORT", 
+              "labels": [ { "text": "Q27.2- On vous a conseillé de ne pas avoir de relations sexuelles à cause de votre séropositivité" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "STIG_PAS_RAPPORT_VS1", 
+                  "labels": [ { "text": "Q27.2- On vous a conseillé de ne pas avoir de relations sexuelles à cause de votre séropositivité" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas de reponse" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "STIG_CRIT", 
+              "labels": [ { "text": "Q27.3- On a mal parlé de vous ou vous avez été victime de commérages à cause de votre séropositivité" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "STIG_CRIT_VS1", 
+                  "labels": [ { "text": "Q27.3- On a mal parlé de vous ou vous avez été victime de commérages à cause de votre séropositivité" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas de reponse" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "STIG_VIOLEN_VERB", 
+              "labels": [ { "text": "Q27.4- Violence verbale en raison de votre séropositivité" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "STIG_VIOLEN_VERB_VS1", 
+                  "labels": [ { "text": "Q27.4- Violence verbale en raison de votre séropositivité" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas de reponse" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "STIG_VIOLEN_PHYS", 
+              "labels": [ { "text": "Q27.5- Violence physique en raison de votre séropositivité" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "STIG_VIOLEN_PHYS_VS1", 
+                  "labels": [ { "text": "Q27.5- Violence physique en raison de votre séropositivité" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas de reponse" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "STIG_CONTACT_PHYS", 
+              "labels": [ { "text": "Q27.6- Éviter tout contact physique avec vous ou prendre des précautions supplémentaires" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "STIG_CONTACT_PHYS_VS1", 
+                  "labels": [ { "text": "Q27.6- Éviter tout contact physique avec vous ou prendre des précautions supplémentaires" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas de reponse" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "STIG_INFO_SANS_CONS", 
+              "labels": [ { "text": "Q27.7- Parler de votre séropositivité à d'autres personnes sans votre consentement" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "STIG_INFO_SANS_CONS_VS1", 
+                  "labels": [ { "text": "Q27.7- Parler de votre séropositivité à d'autres personnes sans votre consentement" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas de reponse" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "REVEL_STATUT", 
+              "labels": [ { "text": "Q28- En dehors de votre centre de prise en charge VIH, révélez-vous habituellement que vous vivez avec le VIH ?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "REVEL_STATUT_VS1", 
+                  "labels": [ { "text": "Q28- En dehors de votre centre de prise en charge VIH, révélez-vous habituellement que vous vivez avec le VIH ?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas de reponse" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "SANTE_REFUS_SERV", 
+              "labels": [ { "text": "Q29.1- Refus de services de santé en raison de votre séropositivité" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "SANTE_REFUS_SERV_VS1", 
+                  "labels": [ { "text": "Q29.1- Refus de services de santé en raison de votre séropositivité" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas de reponse" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "SANTE_REFUS_DENT", 
+              "labels": [ { "text": "Q29.2- Refus de soins dentaires en raison de votre statut sérologique" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "SANTE_REFUS_DENT_VS1", 
+                  "labels": [ { "text": "Q29.2- Refus de soins dentaires en raison de votre statut sérologique" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas de reponse" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "SANTE_EVITER_RAPPORT", 
+              "labels": [ { "text": "Q29.3- Vous conseiller de ne pas avoir de relations sexuelles en raison de votre statut sérologique" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "SANTE_EVITER_RAPPORT_VS1", 
+                  "labels": [ { "text": "Q29.3- Vous conseiller de ne pas avoir de relations sexuelles en raison de votre statut sérologique" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas de reponse" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "SANTE_COMMEN_NEG", 
+              "labels": [ { "text": "Q29.4- Commentaires négatifs ou commérages en raison de votre statut sérologique" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "SANTE_COMMEN_NEG_VS1", 
+                  "labels": [ { "text": "Q29.4- Commentaires négatifs ou commérages en raison de votre statut sérologique" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas de reponse" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "SANTE_VIOLEN_VERB", 
+              "labels": [ { "text": "Q29.5- Violence verbale" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "SANTE_VIOLEN_VERB_VS1", 
+                  "labels": [ { "text": "Q29.5- Violence verbale" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas de reponse" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "SANTE_VIOLEN_PHYS", 
+              "labels": [ { "text": "Q29.6- Violence physique" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "SANTE_VIOLEN_PHYS_VS1", 
+                  "labels": [ { "text": "Q29.6- Violence physique" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas de reponse" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "SANTE_ABS_CONTACT", 
+              "labels": [ { "text": "Q29.7- Absence de contacts physiques avec vous ou précautions supplémentaires" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "SANTE_ABS_CONTACT_VS1", 
+                  "labels": [ { "text": "Q29.7- Absence de contacts physiques avec vous ou précautions supplémentaires" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas de reponse" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "SANTE_DIVUL_STATUT", 
+              "labels": [ { "text": "Q29.8- Divulgation de votre statut sérologique à d’autres personnes sans votre consentement" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "SANTE_DIVUL_STATUT_VS1", 
+                  "labels": [ { "text": "Q29.8- Divulgation de votre statut sérologique à d’autres personnes sans votre consentement" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas de reponse" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "VECU_STIGMA", 
+              "labels": [ { "text": "Q30- Avez-vous été déjà vécu une expérience de stigmatisation ou de discrimination liée à votre statut ? (À remplir par l’enquêteur)" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "VECU_STIGMA_VS1", 
+                  "labels": [ { "text": "Q30- Avez-vous été déjà vécu une expérience de stigmatisation ou de discrimination liée à votre statut ? (À remplir par l’enquêteur)" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "RESS_CONF_SOI", 
+              "labels": [ { "text": "Q31.1- Ma confiance en moi" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "RESS_CONF_SOI_VS1", 
+                  "labels": [ { "text": "Q31.1- Ma confiance en moi" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Influencé de façon négative par ma séropositivité" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Influencé de façon positive par ma séropositivité" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non applicable" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas influencé par ma séropositivité" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "RESS_RESPECT_MOI", 
+              "labels": [ { "text": "Q31.2- Mon respect pour moi-même" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "RESS_RESPECT_MOI_VS1", 
+                  "labels": [ { "text": "Q31.2- Mon respect pour moi-même" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Influencé de façon négative par ma séropositivité" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Influencé de façon positive par ma séropositivité" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non applicable" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas influencé par ma séropositivité" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "RESS_RESPECT_AUTRES", 
+              "labels": [ { "text": "Q31.3- Ma capacité de respecter les autres" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "RESS_RESPECT_AUTRES_VS1", 
+                  "labels": [ { "text": "Q31.3- Ma capacité de respecter les autres" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Influencé de façon négative par ma séropositivité" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Influencé de façon positive par ma séropositivité" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non applicable" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas influencé par ma séropositivité" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "RESS_GEST_STRESS", 
+              "labels": [ { "text": "Q31.4- Ma capacité de composer avec le stress" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "RESS_GEST_STRESS_VS1", 
+                  "labels": [ { "text": "Q31.4- Ma capacité de composer avec le stress" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Influencé de façon négative par ma séropositivité" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Influencé de façon positive par ma séropositivité" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non applicable" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas influencé par ma séropositivité" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "RESS_TRV_AMOUR", 
+              "labels": [ { "text": "Q31.5- Ma capacité à trouver l’amour" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "RESS_TRV_AMOUR_VS1", 
+                  "labels": [ { "text": "Q31.5- Ma capacité à trouver l’amour" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Influencé de façon négative par ma séropositivité" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Influencé de façon positive par ma séropositivité" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non applicable" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas influencé par ma séropositivité" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "RESS_REAL_OBJ", 
+              "labels": [ { "text": "Q31.6- La réalisation de mes objectifs personnels et/ou professionnels" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "RESS_REAL_OBJ_VS1", 
+                  "labels": [ { "text": "Q31.6- La réalisation de mes objectifs personnels et/ou professionnels" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Influencé de façon négative par ma séropositivité" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Influencé de façon positive par ma séropositivité" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non applicable" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas influencé par ma séropositivité" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "RESS_CAP_CONTRIB_COMM", 
+              "labels": [ { "text": "Q31.7- Ma capacité de contribuer à ma communauté" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "RESS_CAP_CONTRIB_COMM_VS1", 
+                  "labels": [ { "text": "Q31.7- Ma capacité de contribuer à ma communauté" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Influencé de façon négative par ma séropositivité" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Influencé de façon positive par ma séropositivité" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non applicable" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas influencé par ma séropositivité" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "RESS_PRAT_RELIGION", 
+              "labels": [ { "text": "Q31.8- Ma capacité de pratiquer une religion/ ma foi, à ma façon" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "RESS_PRAT_RELIGION_VS1", 
+                  "labels": [ { "text": "Q31.8- Ma capacité de pratiquer une religion/ ma foi, à ma façon" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Influencé de façon négative par ma séropositivité" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Influencé de façon positive par ma séropositivité" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non applicable" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas influencé par ma séropositivité" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "CHOIX_PAS_RENC", 
+              "labels": [ { "text": "Q32.1- J’ai choisi de ne pas participer à des rencontres sociales" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "CHOIX_PAS_RENC_VS1", 
+                  "labels": [ { "text": "Q32.1- J’ai choisi de ne pas participer à des rencontres sociales" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non applicable" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "CHOIX_EVITER_HOPI", 
+              "labels": [ { "text": "Q32.2- J’ai évité d'aller dans un centre de santé ou l'hôpital au moment où j'en avais besoin" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "CHOIX_EVITER_HOPI_VS1", 
+                  "labels": [ { "text": "Q32.2- J’ai évité d'aller dans un centre de santé ou l'hôpital au moment où j'en avais besoin" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non applicable" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "CHOIX_PAS_POSTU_EMPL", 
+              "labels": [ { "text": "Q32.3- J’ai choisi de ne pas postuler un ou des emploi(s)" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "CHOIX_PAS_POSTU_EMPL_VS1", 
+                  "labels": [ { "text": "Q32.3- J’ai choisi de ne pas postuler un ou des emploi(s)" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non applicable" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "CHOIX_PAS_SOUTIEN_SOCIAL", 
+              "labels": [ { "text": "Q32.4- J’ai choisi de ne pas recourir à du soutien social" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "CHOIX_PAS_SOUTIEN_SOCIAL_VS1", 
+                  "labels": [ { "text": "Q32.4- J’ai choisi de ne pas recourir à du soutien social" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non applicable" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "CHOIX_EVITER_FAM_AMIS", 
+              "labels": [ { "text": "Q32.5- Je me suis isolé(e) de ma famille et/ou de mes amis" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "CHOIX_EVITER_FAM_AMIS_VS1", 
+                  "labels": [ { "text": "Q32.5- Je me suis isolé(e) de ma famille et/ou de mes amis" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non applicable" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "CHOIX_PAS_SEXE", 
+              "labels": [ { "text": "Q32.6- J’ai décidé de ne pas avoir de relations sexuelles" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "CHOIX_PAS_SEXE_VS1", 
+                  "labels": [ { "text": "Q32.6- J’ai décidé de ne pas avoir de relations sexuelles" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Non applicable" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "OPIN_DIF_PARLER_SEROP", 
+              "labels": [ { "text": "Q33.1- Il est difficile de parler aux gens de ma séropositivité" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "OPIN_DIF_PARLER_SEROP_VS1", 
+                  "labels": [ { "text": "Q33.1- Il est difficile de parler aux gens de ma séropositivité" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non/En désaccord" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui/D’accord" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "OPIN_ETRE_SALE", 
+              "labels": [ { "text": "Q33.2- Avoir le VIH me donne l’impression d’être sale" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "OPIN_ETRE_SALE_VS1", 
+                  "labels": [ { "text": "Q33.2- Avoir le VIH me donne l’impression d’être sale" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non/En désaccord" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui/D’accord" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "OPIN_COUPABLE", 
+              "labels": [ { "text": "Q33.3- Je me sens coupable d’avoir le VIH" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "OPIN_COUPABLE_VS1", 
+                  "labels": [ { "text": "Q33.3- Je me sens coupable d’avoir le VIH" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non/En désaccord" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui/D’accord" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "OPIN_HONTE", 
+              "labels": [ { "text": "Q33.4- J’ai honte d’avoir le VIH" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "OPIN_HONTE_VS1", 
+                  "labels": [ { "text": "Q33.4- J’ai honte d’avoir le VIH" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non/En désaccord" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui/D’accord" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "OPIN_INUTILE", 
+              "labels": [ { "text": "Q33.5- Je me sens parfois inutile parce que j’ai le VIH" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "OPIN_INUTILE_VS1", 
+                  "labels": [ { "text": "Q33.5- Je me sens parfois inutile parce que j’ai le VIH" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non/En désaccord" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui/D’accord" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "OPIN_CACHE_SEROP", 
+              "labels": [ { "text": "Q33.6- Je cache ma séropositivité aux gens" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "OPIN_CACHE_SEROP_VS1", 
+                  "labels": [ { "text": "Q33.6- Je cache ma séropositivité aux gens" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non/En désaccord" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui/D’accord" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }, 
+        {
+          "name": "SECTION4", 
+          "labels": [ { "text": "SECTION 4: Traitement et adhésion thérapeutique" } ], 
+          "recordType": "5", 
+          "occurrences": {
+            "required": true, 
+            "maximum": 1
+          }, 
+          "items": [
+            {
+              "name": "DEBUT_TTT", 
+              "labels": [ { "text": "Q34- Quelle est la date de début de votre traitement ?" } ], 
+              "contentType": "alpha", 
+              "length": 10
+            }, 
+            {
+              "name": "AUTRES_TTT", 
+              "labels": [ { "text": "Q35- En dehors de vos traitements ARV, prenez-vous d’autres médicaments pour traiter une pathologie chronique (Diabète, HTA, etc.)" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "AUTRES_TTT_VS1", 
+                  "labels": [ { "text": "Q35- En dehors de vos traitements ARV, prenez-vous d’autres médicaments pour traiter une pathologie chronique (Diabète, HTA, etc.)" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas de reponse" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "PHYTOTHERAPIE", 
+              "labels": [ { "text": "Q36- En plus de vos médicaments conventionnels, avez-vous recours aux médicaments traditionnels ou phytomédicament ?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "PHYTOTHERAPIE_VS1", 
+                  "labels": [ { "text": "Q36- En plus de vos médicaments conventionnels, avez-vous recours aux médicaments traditionnels ou phytomédicament ?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Pas de reponse" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "DUREE_OUBLI_TTT", 
+              "labels": [ { "text": "Q37.1- Au cours des 12 derniers mois, combien de mois avez-vous oublié de prendre vos médicaments contre le VIH pendant au moins un jour ?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "DUREE_OUBLI_TTT_VS1", 
+                  "labels": [ { "text": "Q37.1- Au cours des 12 derniers mois, combien de mois avez-vous oublié de prendre vos médicaments contre le VIH pendant au moins un jour ?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "0 mois" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "1 à 2 mois" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "3 à 4 mois" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "5 mois ou plus" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "ADHERENCE_S_SCORE_1", 
+              "labels": [ { "text": "Q37.1.1- Score 1" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "FREQUENCE_OUBLI", 
+              "labels": [ { "text": "Q37.2- En général, à quelle fréquence trouvez-vous difficile de vous rappeler de prendre vos médicaments contre le VIH au cours des 12 derniers mois ?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "FREQUENCE_OUBLI_VS1", 
+                  "labels": [ { "text": "Q37.2- En général, à quelle fréquence trouvez-vous difficile de vous rappeler de prendre vos médicaments contre le VIH au cours des 12 derniers mois ?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Jamais" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Rarement" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Parfois" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Souvent" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Tout le temps" } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "ADHERENCE_S_SCORE_2", 
+              "labels": [ { "text": "Q37.2.1- Score 2" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "FREQUENCE_PRISE_TTT", 
+              "labels": [ { "text": "Q37.3- Au cours des 12 derniers mois, à quelle fréquence avez-vous pris vos médicaments plus de 6 heures après l'heure prévue ?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "FREQUENCE_PRISE_TTT_VS1", 
+                  "labels": [ { "text": "Q37.3- Au cours des 12 derniers mois, à quelle fréquence avez-vous pris vos médicaments plus de 6 heures après l'heure prévue ?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Jamais" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Rarement" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Parfois" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Souvent" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Tout le temps" } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "ADHERENCE_S_SCORE_3", 
+              "labels": [ { "text": "Q37.3.1- Score 3" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "SCORE_SUBJECTIF", 
+              "labels": [ { "text": "Q37.4- Score subjectif" } ], 
+              "contentType": "numeric", 
+              "length": 2, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "ADHERENCE_SUBJECTIVE", 
+              "labels": [ { "text": "Q37.5- Adhérence subjective" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "ADHERENCE_SUBJECTIVE_VS1", 
+                  "labels": [ { "text": "Q37.5- Adhérence subjective" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Bonne adhérence" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Adhérence sous optimale; risque accru d’échec virologique" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "PTS_OBSERVANCE_SUBJECT", 
+              "labels": [ { "text": "Q37.5.1- Points observance subjective" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "SUIVI_CV_12M", 
+              "labels": [ { "text": "Q38.1- Suivi de la charge virale au cours des 12 derniers mois" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "SUIVI_CV_12M_VS1", 
+                  "labels": [ { "text": "Q38.1- Suivi de la charge virale au cours des 12 derniers mois" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Charge virale indétectable (< 50 copies/ml)" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Charge virale détectable (> 50 copies/ml)" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "ADHERENCE_OBJECTIVE", 
+              "labels": [ { "text": "Q38.2- Adhérence objective" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "ADHERENCE_OBJECTIVE_VS1", 
+                  "labels": [ { "text": "Q38.2- Adhérence objective" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Mauvaise observance (Charge virale détectable)" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Bonne adhérence (Charge virale indétectable)" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "PTS_OBSERVANCE_OBJECTIVE", 
+              "labels": [ { "text": "Q38.3- Points observance objective" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "SCORE_OBSERVANCE_GLOB", 
+              "labels": [ { "text": "Q39.1- Score observance globale" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "OBSERVANCE_GLOBALE", 
+              "labels": [ { "text": "Q39.2- Observance globale" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "OBSERVANCE_GLOBALE_VS1", 
+                  "labels": [ { "text": "Q39.2- Observance globale" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non observant" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Observant" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "RAISON1_PEUR_DECOUV_STAT", 
+              "labels": [ { "text": "Q40.1.1- J'ai peur que quelqu'un découvre mon statut VIH" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "RAISON1_PEUR_DECOUV_STAT_VS1", 
+                  "labels": [ { "text": "Q40.1.1- J'ai peur que quelqu'un découvre mon statut VIH" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "RAISON1_CRAINT_PROFSANTE", 
+              "labels": [ { "text": "Q40.1.2- Je crains que les professionnels de la santé me traitent mal" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "RAISON1_CRAINT_PROFSANTE_VS1", 
+                  "labels": [ { "text": "Q40.1.2- Je crains que les professionnels de la santé me traitent mal" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "RAISON1_REFUS_TTT", 
+              "labels": [ { "text": "Q40.1.3- Je me suis vu refuser un traitement contre le VIH en raison de ma consommation actuelle de drogue" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "RAISON1_REFUS_TTT_VS1", 
+                  "labels": [ { "text": "Q40.1.3- Je me suis vu refuser un traitement contre le VIH en raison de ma consommation actuelle de drogue" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "RAISON1_PAS_PRET", 
+              "labels": [ { "text": "Q40.1.4- Je ne suis pas prêt à faire face à mon infection à VIH" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "RAISON1_PAS_PRET_VS1", 
+                  "labels": [ { "text": "Q40.1.4- Je ne suis pas prêt à faire face à mon infection à VIH" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "RAISON2_EFF_SECOND", 
+              "labels": [ { "text": "Q40.2.1- Effets secondaires" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "RAISON2_EFF_SECOND_VS1", 
+                  "labels": [ { "text": "Q40.2.1- Effets secondaires" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "RAISON2_PB_APPRO_ARV", 
+              "labels": [ { "text": "Q40.2.2- Problèmes d'approvisionnement en ARV" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "RAISON2_PB_APPRO_ARV_VS1", 
+                  "labels": [ { "text": "Q40.2.2- Problèmes d'approvisionnement en ARV" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "RAISON2_OUBLI", 
+              "labels": [ { "text": "Q40.2.3- Oubli sans raison" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "RAISON2_OUBLI_VS1", 
+                  "labels": [ { "text": "Q40.2.3- Oubli sans raison" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "RAISON2_MANQ_INFO", 
+              "labels": [ { "text": "Q40.2.4- Manque d'informations sur le traitement" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "RAISON2_MANQ_INFO_VS1", 
+                  "labels": [ { "text": "Q40.2.4- Manque d'informations sur le traitement" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "RAISON2_DIFF_ACCES_TTT", 
+              "labels": [ { "text": "Q40.2.5- Distance ou difficulté d'accès au centre de traitement" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "RAISON2_DIFF_ACCES_TTT_VS1", 
+                  "labels": [ { "text": "Q40.2.5- Distance ou difficulté d'accès au centre de traitement" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "RAISON2_FACT_PSYCHO", 
+              "labels": [ { "text": "Q40.2.6- Facteurs psychologiques et émotionnels" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "RAISON2_FACT_PSYCHO_VS1", 
+                  "labels": [ { "text": "Q40.2.6- Facteurs psychologiques et émotionnels" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "RAISON2_POLYMEDICATION", 
+              "labels": [ { "text": "Q40.2.7- Polymédication" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "RAISON2_POLYMEDICATION_VS1", 
+                  "labels": [ { "text": "Q40.2.7- Polymédication" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "Non" } ], 
+                      "pairs": [ { "value": "0" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Oui" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "RAISONS_AUTRES", 
+              "labels": [ { "text": "Q40.3- Autres raisons des oublis ou irrégularités au cours des 12 derniers mois " } ], 
+              "contentType": "alpha", 
+              "length": 500
+            }
+          ]
+        }, 
+        {
+          "name": "SECTION0", 
+          "labels": [ { "text": "SECTION 0" } ], 
+          "recordType": "1", 
+          "occurrences": {
+            "required": true, 
+            "maximum": 1
+          }, 
+          "items": [
+            {
+              "name": "DATE_ENQUETE", 
+              "labels": [ { "text": "Date de l'enquête" } ], 
+              "contentType": "alpha", 
+              "length": 10
+            }, 
+            {
+              "name": "HEURE_ENQUETE", 
+              "labels": [ { "text": "Heure de l'enquête" } ], 
+              "contentType": "alpha", 
+              "length": 8
+            }, 
+            {
+              "name": "SITE", 
+              "labels": [ { "text": "Site" } ], 
+              "contentType": "numeric", 
+              "length": 2, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "SITE_VS1", 
+                  "labels": [ { "text": "Site" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "CMA 1er Bton Akouedo" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CSA Escadron 3/1 Abobo" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CSA GMMG Plateau" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CSA GR Treichville" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CMA Base Aérienne Abidjan" } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CSA GR Plateau" } ], 
+                      "pairs": [ { "value": "6" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CSA Gendarmerie Dimbokro" } ], 
+                      "pairs": [ { "value": "7" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CSA Gendarmerie Daoukro" } ], 
+                      "pairs": [ { "value": "8" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CSA Gendarmerie Bondoukou" } ], 
+                      "pairs": [ { "value": "9" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CMA 4e Bton Korhogo" } ], 
+                      "pairs": [ { "value": "10" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CSA 4e Legion Korhogo" } ], 
+                      "pairs": [ { "value": "11" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CSA 4e Cie GSPM Korhogo" } ], 
+                      "pairs": [ { "value": "12" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CSA 5e Legion San-Pedro" } ], 
+                      "pairs": [ { "value": "13" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CSA Gendarmerie Soubre " } ], 
+                      "pairs": [ { "value": "14" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "HMA" } ], 
+                      "pairs": [ { "value": "15" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CPS AGBAN" } ], 
+                      "pairs": [ { "value": "16" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CMA GSPM Indénié" } ], 
+                      "pairs": [ { "value": "17" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CMA Base Navale Abidjan" } ], 
+                      "pairs": [ { "value": "18" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CSA Escadron 2/1 Yopougon" } ], 
+                      "pairs": [ { "value": "19" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CSA Escadron 5/1 Aboisso" } ], 
+                      "pairs": [ { "value": "20" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CSA Forces Spéciales Adiaké" } ], 
+                      "pairs": [ { "value": "21" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CSA GR Yamoussoukro" } ], 
+                      "pairs": [ { "value": "22" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CSA 5e Cie GSPM Yamoussoukro" } ], 
+                      "pairs": [ { "value": "23" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CSA 3e Légion Yamoussoukro" } ], 
+                      "pairs": [ { "value": "24" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CMA 3e Bton Bouaké" } ], 
+                      "pairs": [ { "value": "25" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CSA 3e Légion Bouaké" } ], 
+                      "pairs": [ { "value": "26" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Base Aérienne Bouaké" } ], 
+                      "pairs": [ { "value": "27" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CSA 1er Bton Génie Bouaké" } ], 
+                      "pairs": [ { "value": "28" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CSA 3e Cie GSPM Bouaké" } ], 
+                      "pairs": [ { "value": "29" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CSA BSNO Odienné" } ], 
+                      "pairs": [ { "value": "30" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CSA Légion Odienné" } ], 
+                      "pairs": [ { "value": "31" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CSA BSO Man" } ], 
+                      "pairs": [ { "value": "32" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CSA Escadron Man" } ], 
+                      "pairs": [ { "value": "33" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CSA Guiglo" } ], 
+                      "pairs": [ { "value": "34" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CSA CEOP Seguela" } ], 
+                      "pairs": [ { "value": "35" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CMA 2e Bton Daloa" } ], 
+                      "pairs": [ { "value": "36" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "CSA 2e Légion Daloa " } ], 
+                      "pairs": [ { "value": "37" } ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

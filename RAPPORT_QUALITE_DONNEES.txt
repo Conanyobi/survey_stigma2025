@@ -1,0 +1,121 @@
+=========================================================
+       RAPPORT DE QUALITÉ DES DONNÉES
+       Enquête Stigmatisation VIH/SIDA 2025
+=========================================================
+Date de génération: 12/11/2025 
+Heure de génération: 19:18:54 
+
+1. APERÇU GÉNÉRAL DU DATASET
+============================
+• Nombre total d'observations : 243 
+• Nombre total de variables   : 121 
+• Variables avec labels       : 103 
+• Variables numériques        : 12 
+• Variables caractères        : 6 
+• Taille estimée en mémoire   : 0.3 MB
+
+2. COMPLÉTUDE DES DONNÉES
+=========================
+Variables avec >5% de données manquantes :
+           Variable      Type Total Valeurs_manquantes Taux_completude
+DUREE_TTT DUREE_TTT   numeric   243                 25            89.7
+DEBUT_TTT DEBUT_TTT character   243                 24            90.1
+
+Statistiques de complétude :
+• Complétude moyenne          : 99.5 %
+• Variables 100% complètes    : 7 
+• Variables >95% complètes    : 119 
+• Variables <90% complètes    : 1 
+
+3. QUALITÉ DES VARIABLES DÉMOGRAPHIQUES
+========================================
+SEXE :
+
+Masculin  Féminin     <NA> 
+      87      155        1 
+• Taux de complétude : 99.6 %
+
+ÂGE :
+• Nombre de valeurs valides  : 242 
+• Âge minimum                : 15 ans
+• Âge maximum                : 79 ans
+• Âge moyen                  : 46.2 ans
+• Âge médian                 : 46.5 ans
+⚠ ATTENTION :  1  participant(s) <18 ans
+
+CLASSES D'ÂGE :
+
+18-24 25-59   60+  <NA> 
+   11   203    27     2 
+• Pourcentages :
+
+18-24 25-59   60+  <NA> 
+  4.5  83.5  11.1   0.8 
+
+RÉGION MILITAIRE :
+
+1ère Région Militaire   2e Région Militaire   3e Région Militaire   4e Région Militaire                  <NA> 
+                  141                    42                    39                    20                     1 
+• Taux de renseignement : 99.6 %
+
+4. QUALITÉ DES VARIABLES LIÉES AU TRAITEMENT
+=============================================
+DEBUT_TTT :
+• Dates valides              : 219 / 243 
+• Taux de complétude         : 90.1 %
+• Année la plus ancienne     : 205 
+• Année la plus récente      : 2025 
+
+DUREE_TTT :
+• Durées calculées           : 218 / 243 
+• Taux de complétude         : 89.7 %
+• Durée moyenne              : 100.9 mois
+• Durée médiane              : 79.8 mois
+• Durée minimum              : 2.7 mois
+• Durée maximum              : 283.6 mois
+• Répartition par durée :
+  - < 12 mois                : 5 personnes
+  - 12-60 mois               : 64 personnes
+  - 60-120 mois              : 86 personnes
+  - ≥ 120 mois               : 63 personnes
+
+5. ENREGISTREMENTS PROBLÉMATIQUES
+==================================
+• Participants <18 ans        : 1 ( 0.4 %)
+• Traitement <12 mois         : 5 ( 2.1 %)
+• Date début traitement vide : 24 ( 9.9 %)
+• Enregistrements quasi-vides : 1 ( 0.4 %)
+• TOTAL UNIQUE problématique : 30 ( 12.3 %)
+
+6. RECOMMANDATIONS POUR L'ANALYSE
+==================================
+⚠ Vérifier les critères d'inclusion (âge ≥18 ans)
+⚠ Nombre élevé de dates de début manquantes - impact sur analyses temporelles
+⚠ Exclure les enregistrements quasi-vides des analyses
+• Considérer une analyse séparée pour les traitements récents (<12 mois)
+• Dataset recommandé pour analyse principale : 241 observations
+• Taux d'utilisation des données            : 99.2 %
+
+7. VARIABLES SPÉCIFIQUES À L'ÉTUDE VIH/SIDA
+============================================
+Variables de stigmatisation   : 19 
+• Complétude moyenne          : 99.6 %
+• Variables <90% complètes    : 0 
+Variables de santé            : 24 
+• Complétude moyenne          : 99.6 %
+Variables d'observance        : 11 
+• Complétude moyenne          : 99.6 %
+
+8. CONCLUSION
+=============
+✓ EXCELLENTE qualité des données ( 99.5 % de complétude)
+
+Le dataset est prêt pour l'analyse avec :
+•  241  observations analysables
+•  103  variables avec labels appliqués
+• Variables créées : CLASSES_AGE, DUREE_TTT, REGION_MILITAIRE (renseignée)
+• Format des dates uniformisé (jj-mm-aaaa)
+
+=========================================================
+Fin du rapport -  12/11/2025 19:18:54 
+=========================================================

@@ -1,0 +1,1170 @@
+---
+title: "Analyse Descriptive Complète - Enquête Stigmatisation VIH/SIDA 2025"
+subtitle: "Selon le Plan d'Analyse Officiel"
+author: "Forces Armées de Côte d'Ivoire"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_depth: '3'
+    df_print: paged
+  word_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+    fig_width: 8
+    fig_height: 6
+---
+
+```{r setup, include=FALSE}
+# Configuration générale
+knitr::opts_chunk$set(
+  echo = FALSE, 
+  warning = FALSE, 
+  message = FALSE,
+  results = 'asis',  # CRUCIAL pour Word !
+  fig.width = 8, 
+  fig.height = 6
+)
+
+# Charger les packages nécessaires
+library(dplyr)
+library(ggplot2)
+library(knitr)
+library(kableExtra)
+
+# Configuration pour Word - utiliser kable au lieu de flextable
+options(knitr.table.format = "pipe")
+
+# Fonction pour formater les nombres avec virgule décimale
+format_number <- function(x, digits = 1) {
+  if(is.numeric(x)) {
+    formatted <- format(round(x, digits), nsmall = digits, decimal.mark = ",")
+    return(formatted)
+  }
+  return(x)
+}
+
+# Dictionnaire COMPLET des labels des variables (extrait du dictionnaire CSPro)
+var_labels <- list(
+  # Variables administratives
+  "OPERATOR_ID" = "Enquêteur",
+  "CODE" = "Code participant",
+  "NUM_QUESTIONNAIRE" = "Numéro questionnaire",
+  "DATE_ENQUETE" = "Date de l'enquête",
+  "HEURE_ENQUETE" = "Heure de l'enquête",
+  "ID_UNIQUE" = "Identifiant unique",
+  
+  # Variables géographiques
+  "REGION_MILITAIRE" = "Région militaire",
+  "SITE" = "Site de collecte",
+  
+  # Variables sociodémographiques
+  "SEXE" = "Q4- Sexe",
+  "AGE" = "Q5- Âge",
+  "CLASSES_AGE" = "Classes d'âge",
+  "NIV_EDUC" = "Q6- Niveau d'éducation",
+  "NB_PERS_CHARGE" = "Q7- Nombre de personnes à charge vivant dans le ménage",
+  "CATEGORIE" = "Q8- Catégorie d'enquêté",
+  "SITUATION_PROF" = "Q9- Situation professionnelle",
+  "TEMPS_TRAVAIL" = "Q10- Temps de travail",
+  
+  # Variables relations et soutien
+  "REL_INTIME_ACTU" = "Q11- Êtes-vous dans une relation intime/sexuelle actuellement ?",
+  "PARTENAIRE_PVVIH" = "Q12- Votre partenaire vit-il/elle avec le VIH ?",
+  "GRP_SOUTIEN_VIH" = "Q13- Faites-vous partie d'un groupe de soutien VIH ?",
+  "BESOINS_FOND" = "Q14- Incapacité de combler des besoins fondamentaux",
+  
+  # Variables dépistage et diagnostic
+  "DECISION_DEPIST" = "Décision de dépistage",
+  "RAISON_PRINC" = "Raison principale du dépistage",
+  "HESITATION_DEPIST" = "Hésitation avant le dépistage",
+  "DELAI_DEBUT_TTT" = "Délai avant début du traitement",
+  
+  # Variables état de santé et comorbidités
+  "ACCES_CV_12M" = "Accès à la charge virale dans les 12 derniers mois",
+  "IMPR_ETAT_SANTE" = "Impression sur l'état de santé",
+  "DIAG_TB" = "Diagnostic de tuberculose",
+  "DIAG_HV" = "Diagnostic d'hépatite virale",
+  "DIAG_IST" = "Diagnostic d'IST",
+  "DIAG_TB_MENT" = "Diagnostic de troubles mentaux",
+  "DIAG_MNT" = "Diagnostic de maladies non transmissibles",
+  "DIAG_IOP" = "Diagnostic d'infections opportunistes",
+  "DIAG_ALC_DRG" = "Problèmes d'alcool ou drogues",
+  "DIAG_PEC" = "Prise en charge médicale",
+  
+  # Variables services et soins
+  "SOINS_NON_VIH" = "Soins non liés au VIH",
+  "SITE_PEC_VIH" = "Site de prise en charge VIH",
+  "SERV_TTT" = "Services de traitement",
+  "SERV_INFO" = "Services d'information",
+  "SERV_DEP" = "Services de dépistage",
+  "SERV_SOUTIEN" = "Services de soutien",
+  "SERV_PREV" = "Services de prévention",
+  "SERV_CONSEIL" = "Services de conseil",
+  "SERV_DOSSIERS" = "Gestion des dossiers",
+  
+  # Variables exclusion sociale
+  "EXCL_ACT_SOCIAL" = "Q26.01- Exclusion d'activités sociales",
+  "EXCL_ACT_RELIG" = "Q26.02- Exclusion d'activités religieuses",
+  "EXCL_ACT_FAML" = "Q26.03- Exclusion d'activités familiales",
+  "EXCL_CRIT_FAM" = "Critiques de la famille",
+  "EXCL_CRIT_AUTRES" = "Critiques d'autres personnes",
+  "EXCL_HARCEL_VERB" = "Harcèlement verbal",
+  "EXCL_CHANTAGE" = "Chantage lié au statut VIH",
+  "EXCL_HARC_PHYS" = "Harcèlement physique",
+  "EXCL_REFUS_EMPLOI" = "Refus d'emploi",
+  "EXCL_TRAVAIL_POSTE" = "Discrimination au travail",
+  "EXCL_DISCR_CONJ_ENFTS" = "Discrimination du conjoint/enfants",
+  
+  # Variables stigmatisation
+  "STIG_SERV_SAN_REFUS" = "Q27.1- Refus de services de santé",
+  "STIG_PAS_RAPPORT" = "Q27.2- Conseil de ne pas avoir de relations sexuelles",
+  "STIG_CRIT" = "Q27.3- Commérages à cause de la séropositivité",
+  "STIG_VIOLEN_VERB" = "Violence verbale liée au VIH",
+  "STIG_VIOLEN_PHYS" = "Violence physique liée au VIH",
+  "STIG_CONTACT_PHYS" = "Évitement du contact physique",
+  "STIG_INFO_SANS_CONS" = "Divulgation d'informations sans consentement",
+  "REVEL_STATUT" = "Révélation du statut VIH",
+  
+  # Variables stigmatisation dans les services de santé
+  "SANTE_REFUS_SERV" = "Refus de services de santé",
+  "SANTE_REFUS_DENT" = "Refus de soins dentaires",
+  "SANTE_EVITER_RAPPORT" = "Conseil d'éviter les rapports sexuels",
+  "SANTE_COMMEN_NEG" = "Commentaires négatifs",
+  "SANTE_VIOLEN_VERB" = "Violence verbale dans les services",
+  "SANTE_VIOLEN_PHYS" = "Violence physique dans les services",
+  "SANTE_ABS_CONTACT" = "Absence de contact physique",
+  "SANTE_DIVUL_STATUT" = "Divulgation du statut sans consentement",
+  
+  # Variables vécu et résilience
+  "VECU_STIGMA" = "Vécu de stigmatisation",
+  "RESS_CONF_SOI" = "Ressource: Confiance en soi",
+  "RESS_RESPECT_MOI" = "Ressource: Respect de soi",
+  "RESS_RESPECT_AUTRES" = "Ressource: Respect des autres",
+  "RESS_GEST_STRESS" = "Ressource: Gestion du stress",
+  "RESS_TRV_AMOUR" = "Ressource: Trouver l'amour",
+  "RESS_REAL_OBJ" = "Ressource: Réalisation des objectifs",
+  "RESS_CAP_CONTRIB_COMM" = "Ressource: Contribution à la communauté",
+  "RESS_PRAT_RELIGION" = "Ressource: Pratique religieuse",
+  
+  # Variables choix comportementaux
+  "CHOIX_PAS_RENC" = "Choix: Éviter les rencontres",
+  "CHOIX_EVITER_HOPI" = "Choix: Éviter l'hôpital",
+  "CHOIX_PAS_POSTU_EMPL" = "Choix: Ne pas postuler pour un emploi",
+  "CHOIX_PAS_SOUTIEN_SOCIAL" = "Choix: Éviter le soutien social",
+  "CHOIX_EVITER_FAM_AMIS" = "Choix: Éviter famille et amis",
+  "CHOIX_PAS_SEXE" = "Choix: Éviter les relations sexuelles",
+  
+  # Variables opinions et sentiments
+  "OPIN_DIF_PARLER_SEROP" = "Opinion: Difficulté à parler de séropositivité",
+  "OPIN_ETRE_SALE" = "Opinion: Sentiment d'être sale",
+  "OPIN_COUPABLE" = "Opinion: Sentiment de culpabilité",
+  "OPIN_HONTE" = "Opinion: Sentiment de honte",
+  "OPIN_INUTILE" = "Opinion: Sentiment d'inutilité",
+  "OPIN_CACHE_SEROP" = "Opinion: Cacher la séropositivité",
+  
+  # Variables traitement ARV
+  "DEBUT_TTT" = "Date de début du traitement",
+  "DUREE_TTT" = "Durée du traitement ARV (mois)",
+  "AUTRES_TTT" = "Autres traitements",
+  "PHYTOTHERAPIE" = "Phytothérapie",
+  "DUREE_OUBLI_TTT" = "Durée d'oubli du traitement",
+  
+  # Variables adhérence et observance
+  "ADHERENCE_S_SCORE_1" = "Score d'adhérence subjective 1",
+  "FREQUENCE_OUBLI" = "Fréquence d'oubli du traitement",
+  "ADHERENCE_S_SCORE_2" = "Score d'adhérence subjective 2",
+  "FREQUENCE_PRISE_TTT" = "Fréquence de prise du traitement",
+  "ADHERENCE_S_SCORE_3" = "Score d'adhérence subjective 3",
+  "SCORE_SUBJECTIF" = "Score subjectif global",
+  "ADHERENCE_SUBJECTIVE" = "Adhérence subjective",
+  "PTS_OBSERVANCE_SUBJECT" = "Points d'observance subjective",
+  "SUIVI_CV_12M" = "Suivi charge virale 12 mois",
+  "ADHERENCE_OBJECTIVE" = "Adhérence objective",
+  "PTS_OBSERVANCE_OBJECTIVE" = "Points d'observance objective",
+  "SCORE_OBSERVANCE_GLOB" = "Score d'observance globale",
+  "OBSERVANCE_GLOBALE" = "Observance globale",
+  
+  # Variables raisons de non-adhérence
+  "RAISON1_PEUR_DECOUV_STAT" = "Raison 1: Peur découverte statut",
+  "RAISON1_CRAINT_PROFSANTE" = "Raison 1: Crainte professionnels santé",
+  "RAISON1_REFUS_TTT" = "Raison 1: Refus traitement",
+  "RAISON1_PAS_PRET" = "Raison 1: Pas prêt",
+  "RAISON2_EFF_SECOND" = "Raison 2: Effets secondaires",
+  "RAISON2_PB_APPRO_ARV" = "Raison 2: Problème approvisionnement ARV",
+  "RAISON2_OUBLI" = "Raison 2: Oubli",
+  "RAISON2_MANQ_INFO" = "Raison 2: Manque d'information",
+  "RAISON2_DIFF_ACCES_TTT" = "Raison 2: Difficultés d'accès traitement",
+  "RAISON2_FACT_PSYCHO" = "Raison 2: Facteurs psychologiques",
+  "RAISON2_POLYMEDICATION" = "Raison 2: Polymédication",
+  "RAISONS_AUTRES" = "Autres raisons"
+)
+
+# Dictionnaire des titres de tableaux basé sur le plan d'analyse sélectionné
+tableau_titles <- list(
+  # Section 1 : Caractéristiques socio-démographiques (1.1-1.14)
+  "REGION_MILITAIRE" = "Tableau 1.1 : Répartition des PVVIH par Région Militaire",
+  "SITE" = "Tableau 1.2 : Répartition des PVVIH par Site",
+  "SEXE" = "Tableau 1.3 : Répartition des PVVIH par sexe",
+  "AGE" = "Tableau 1.4 : Age",
+  "CLASSES_AGE" = "Tableau 1.5 : Répartition des PVVIH selon les classes d'âges",
+  "NIV_EDUC" = "Tableau 1.6 : Répartition des PVVIH selon le niveau d'éducation",
+  "NB_PERS_CHARGE" = "Tableau 1.7 : Nombre moyen de personnes à charge vivant dans le ménage",
+  "CATEGORIE" = "Tableau 1.8 : Répartition des PVVIH selon la catégorie",
+  "SITUATION_PROF" = "Tableau 1.9 : Répartition des PVVIH selon la situation professionnelle",
+  "TEMPS_TRAVAIL" = "Tableau 1.10 : Répartition des PVVIH selon le temps de travail",
+  "REL_INTIME_ACTU" = "Tableau 1.11 : Répartition des PVVIH selon leur situation de relation intime/sexuelle actuelle",
+  "PARTENAIRE_PVVIH" = "Tableau 1.12 : Répartition des PVVIH selon leur connaissance du statut sérologique de leurs partenaires",
+  "GRP_SOUTIEN_VIH" = "Tableau 1.13 : Répartition des PVVIH selon leur appartenance à un groupe de soutien et/ou un réseau de personnes vivant avec le VIH",
+  "BESOINS_FOND" = "Tableau 1.14 : Répartition des patients selon leur incapacité à combler des besoins fondamentaux (manger, boire, dormir, se soigner, etc.) au cours des 12 derniers mois",
+  
+  # Section 2 : Interactions avec les services de soins de santé concernant le dépistage et le suivi médical (2.1-2.23)
+  "DECISION_DEPIST" = "Tableau 2.1 : Répartition des PVVIH selon le choix de décision de dépistage VIH",
+  "RAISON_PRINC" = "Tableau 2.2 : Répartition des PVVIH selon la raison principale pour laquelle un test de dépistage du VIH a été réalisé",
+  "HESITATION_DEPIST" = "Tableau 2.3 : Répartition des PVVIH selon leur appréhension à se faire dépister par peur des réactions des autres",
+  "DELAI_DEBUT_TTT" = "Tableau 2.4 : Répartition des PVVIH selon le délai avant le début du traitement (antirétroviral)",
+  "ACCES_CV_12M" = "Tableau 2.5 : Répartition des PVVIH selon leur accès à la charge virale au cours des 12 derniers mois",
+  "IMPR_ETAT_SANTE" = "Tableau 2.6 : Répartition des PVVIH selon leur appréciation de leur état de santé actuel",
+  "DIAG_TB" = "Tableau 2.7 : Répartition des PVVIH ayant reçu un diagnostic de tuberculose au cours des 12 derniers mois",
+  "DIAG_HV" = "Tableau 2.8 : Répartition des PVVIH ayant reçu un diagnostic d'hépatite virale au cours des 12 derniers mois",
+  "DIAG_IST" = "Tableau 2.9 : Répartition des PVVIH ayant reçu un diagnostic d'infections sexuellement transmissibles au cours des 12 derniers mois",
+  "DIAG_TB_MENT" = "Tableau 2.10 : Répartition des PVVIH ayant reçu un diagnostic de trouble de santé mentale au cours des 12 derniers mois",
+  "DIAG_MNT" = "Tableau 2.11 : Répartition des PVVIH ayant reçu un diagnostic de maladie(s) non transmissible(s) au cours des 12 derniers mois",
+  "DIAG_IOP" = "Tableau 2.12 : Répartition des PVVIH ayant reçu un diagnostic d'infections opportunistes au cours des 12 derniers mois",
+  "DIAG_ALC_DRG" = "Tableau 2.13 : Répartition des PVVIH ayant reçu un diagnostic de syndromes de dépendance à l'alcool ou aux drogues au cours des 12 derniers mois",
+  "DIAG_PEC" = "Tableau 2.14 : Répartition des PVVIH dont les affections diagnostiquées ont été prises en charge",
+  "SOINS_NON_VIH" = "Tableau 2.15 : Répartition des PVVIH ayant cherché à obtenir des soins de santé pour des besoins non liés au VIH (p. ex., paludisme, grippe, soins dentaires, vaccinations, blessures, etc.) au cours des 12 derniers mois",
+  "SITE_PEC_VIH" = "Tableau 2.16 : Répartition des PVVIH selon l'endroit habituel de leurs soins et traitements pour le VIH",
+  "SERV_TTT" = "Tableau 2.17 : Répartition des PVVIH pouvant accéder aux services de traitement du VIH sur leur site de prise en charge",
+  "SERV_INFO" = "Tableau 2.18 : Répartition des PVVIH pouvant accéder aux services d'informations sur le VIH sur leur site de prise en charge",
+  "SERV_DEP" = "Tableau 2.19 : Répartition des PVVIH pouvant accéder aux services de soins et de dépistage du VIH sur leur site de prise en charge",
+  "SERV_SOUTIEN" = "Tableau 2.20 : Répartition des PVVIH pouvant accéder aux services de Soutien par les pairs (groupes) sur leur site de prise en charge",
+  "SERV_PREV" = "Tableau 2.21 : Répartition des PVVIH pouvant accéder aux services et produits de prévention sur leur site de prise en charge",
+  "SERV_CONSEIL" = "Tableau 2.22 : Répartition des PVVIH pouvant accéder aux services de conseil en matière d'adhésion au traitement sur leur site de prise en charge",
+  "SERV_DOSSIERS" = "Tableau 2.23 : Répartition des PVVIH pouvant accéder aux services de gestion des dossiers sur leur site de prise en charge",
+  
+  # Section 3 : Expérience de stigmatisation et de discrimination (3.1-3.42)
+  "EXCL_ACT_SOCIAL" = "Tableau 3.1 : Répartition des PVVIH ayant déjà été exclus des activités ou rencontres sociales (mariages, funérailles, fêtes, clubs) en raison de leur statut sérologique",
+  "EXCL_ACT_RELIG" = "Tableau 3.2 : Répartition des PVVIH ayant déjà été exclus des activités religieuses ou de lieux de culte en raison de leur statut sérologique",
+  "EXCL_ACT_FAML" = "Tableau 3.3 : Répartition des PVVIH ayant déjà été exclus des activités familiales en raison de leur statut sérologique",
+  "EXCL_CRIT_FAM" = "Tableau 3.4 : Répartition des PVVIH ayant déjà eu connaissance de remarques discriminatoires ou de commérages à son sujet de la part de membres de sa famille en raison de leur statut sérologique",
+  "EXCL_CRIT_AUTRES" = "Tableau 3.5 : Répartition des PVVIH ayant déjà eu connaissance de remarques discriminatoires ou de commérages à leur sujet de la part d'autres personnes (au-delà de leur famille) en raison de leur statut sérologique",
+  "EXCL_HARCEL_VERB" = "Tableau 3.6 : Répartition des PVVIH ayant déjà été harcelés verbalement (p. ex., cris, réprimandes ou autre forme de violence verbale) en raison de leur statut sérologique",
+  "EXCL_CHANTAGE" = "Tableau 3.7 : Répartition des PVVIH ayant déjà été victime de chantage en raison de leur statut sérologique",
+  "EXCL_HARC_PHYS" = "Tableau 3.8 : Répartition des PVVIH ayant déjà été harcelés ou blessés physiquement (p. ex., bousculade, coups ou autre forme de violence corporelle) en raison de leur statut sérologique",
+  "EXCL_REFUS_EMPLOI" = "Tableau 3.9 : Répartition des PVVIH ayant déjà été victime de refus d'un emploi ou a déjà perdu une source de revenus ou un travail en raison de leur statut sérologique",
+  "EXCL_TRAVAIL_POSTE" = "Tableau 3.10 : Répartition des PVVIH ayant déjà été victimes de changement de description de leur poste ou de la nature de leur travail ou un refus de promotion en raison de leur statut sérologique",
+  "EXCL_DISCR_CONJ_ENFTS" = "Tableau 3.11 : Répartition des PVVIH ayant déjà été victimes de discrimination subie de la part du /de la conjoint(e), du/des partenaire(s) ou de ses enfants en raison de leur statut sérologique",
+  "STIG_SERV_SAN_REFUS" = "Tableau 3.12 : Répartition des PVVIH ayant déjà vécu un refus de services de santé par le personnel de santé en raison de leur séropositivité",
+  "STIG_PAS_RAPPORT" = "Tableau 3.13 : Répartition des PVVIH ayant déjà été conseillés par le personnel de santé de ne pas avoir de relations sexuelles en raison de leur séropositivité",
+  "STIG_CRIT" = "Tableau 3.14 : Répartition des PVVIH ayant déjà été victime de critiques et commérages par le personnel de santé en raison de leur séropositivité",
+  "STIG_VIOLEN_VERB" = "Tableau 3.15 : Répartition des PVVIH ayant déjà été victimes de violence verbale par le personnel de santé en raison de leur séropositivité",
+  "STIG_VIOLEN_PHYS" = "Tableau 3.16 : Répartition des PVVIH ayant déjà été victimes de violence physique par le personnel de santé en raison de leur séropositivité",
+  "STIG_CONTACT_PHYS" = "Tableau 3.17 : Répartition des PVVIH ayant déjà vécu une expérience dans laquelle le personnel de santé refusait tout contact physique ou prenait des précautions supplémentaires en raison de leur séropositivité",
+  "STIG_INFO_SANS_CONS" = "Tableau 3.18 : Répartition des PVVIH ayant déjà vécu une expérience dans laquelle le personnel de santé a parlé de leur séropositivité à d'autres personnes sans leur consentement",
+  "REVEL_STATUT" = "Tableau 3.19 : Répartition des PVVIH révélant habituellement leur statut sérologique en dehors de leur centre de prise en charge VIH",
+  "SANTE_REFUS_SERV" = "Tableau 3.20 : Répartition des PVVIH ayant au cours des 12 derniers mois vécu un refus des services de santé en raison de leur séropositivité",
+  "SANTE_REFUS_DENT" = "Tableau 3.21 : Répartition des PVVIH ayant au cours des 12 derniers mois vécu un refus de soins dentaires en raison de leur séropositivité",
+  "SANTE_EVITER_RAPPORT" = "Tableau 3.22 : Répartition des PVVIH ayant au cours des 12 derniers mois été conseillés de ne pas avoir de relations sexuelles en raison de leur séropositivité",
+  "SANTE_COMMEN_NEG" = "Tableau 3.23 : Répartition des PVVIH ayant au cours des 12 derniers mois ayant été victimes de commentaires négatifs ou commérages de la part d'agents de santé en raison de leur statut sérologique",
+  "SANTE_VIOLEN_VERB" = "Tableau 3.24 : Répartition des PVVIH ayant au cours des 12 derniers mois été victimes de violence verbale par le personnel de santé en raison de leur séropositivité",
+  "SANTE_VIOLEN_PHYS" = "Tableau 3.25 : Répartition des PVVIH ayant au cours des 12 derniers mois été victimes de violence physique par le personnel de santé en raison de leur séropositivité",
+  "SANTE_ABS_CONTACT" = "Tableau 3.26 : Répartition des PVVIH ayant au cours des 12 derniers mois vécu une expérience dans laquelle le personnel de santé refusait tout contact physique ou prenait des précautions supplémentaires en raison de leur séropositivité",
+  "SANTE_DIVUL_STATUT" = "Tableau 3.27 : Répartition des PVVIH ayant au cours des 12 derniers mois vécu une expérience dans laquelle le personnel de santé a parlé de leur séropositivité à d'autres personnes sans leur consentement",
+  "VECU_STIGMA" = "Tableau 3.28 : Répartition des PVVIH ayant déjà vécu une expérience de stigmatisation ou de discrimination liée à leur statut",
+  "RESS_CONF_SOI" = "Tableau 3.29 : Répartition des PVVIH par rapport à leur ressenti vis-à-vis de la confiance en soi en rapport avec leur statut sérologique",
+  "RESS_RESPECT_MOI" = "Tableau 3.30 : Répartition des PVVIH par rapport à leur ressenti vis-à-vis du respect pour eux-mêmes en rapport avec leur statut sérologique",
+  "RESS_RESPECT_AUTRES" = "Tableau 3.31 : Répartition des PVVIH par rapport à leur ressenti vis-à-vis de leur capacité à respecter les autres en rapport avec leur statut sérologique",
+  "RESS_GEST_STRESS" = "Tableau 3.32 : Répartition des PVVIH par rapport à leur ressenti vis-à-vis de leur capacité à composer avec le stress en rapport avec leur statut sérologique",
+  "RESS_TRV_AMOUR" = "Tableau 3.33 : Répartition des PVVIH par rapport à leur ressenti vis-à-vis de leur capacité à trouver l'amour en rapport avec leur statut sérologique",
+  "RESS_REAL_OBJ" = "Tableau 3.34 : Répartition des PVVIH par rapport à leur ressenti vis-à-vis de la réalisation de leurs objectifs personnels et/ou professionnels en rapport avec leur statut sérologique",
+  "RESS_CAP_CONTRIB_COMM" = "Tableau 3.35 : Répartition des PVVIH par rapport à leur ressenti vis-à-vis de leur capacité de contribuer à leur communauté en rapport avec leur statut sérologique",
+  "RESS_PRAT_RELIGION" = "Tableau 3.36 : Répartition des PVVIH par rapport à leur ressenti vis-à-vis de leur capacité à pratiquer une religion, leur foi, à leur façon en rapport avec leur statut sérologique",
+  "CHOIX_PAS_RENC" = "Tableau 3.37 : Répartition des PVVIH ayant choisi de ne pas participer à des rencontres sociales",
+  "CHOIX_EVITER_HOPI" = "Tableau 3.38 : Répartition des PVVIH ayant évité de se rendre dans un centre de santé ou un hôpital au moment où ils en avaient besoin",
+  "CHOIX_PAS_POSTU_EMPL" = "Tableau 3.39 : Répartition des PVVIH ayant choisi de ne pas postuler un ou des emploi(s)",
+  "CHOIX_PAS_SOUTIEN_SOCIAL" = "Tableau 3.40 : Répartition des PVVIH ayant choisi de ne pas recourir à du soutien social",
+  "CHOIX_EVITER_FAM_AMIS" = "Tableau 3.41 : Répartition des PVVIH ayant décidé de s'isoler de leur famille et/ou de leurs amis",
+  "CHOIX_PAS_SEXE" = "Tableau 3.42 : Répartition des PVVIH ayant décidé de ne pas avoir de relations sexuelles",
+  "OPIN_DIF_PARLER_SEROP" = "Tableau 3.43 : Répartition des PVVIH estimant que parler de leur séropositivité aux gens leur est difficile",
+  "OPIN_ETRE_SALE" = "Tableau 3.44 : Répartition des PVVIH estimant qu'avoir le VIH leur donne l'impression d'être sale",
+  "OPIN_COUPABLE" = "Tableau 3.45 : Répartition des PVVIH se sentant coupable d'avoir le VIH",
+  "OPIN_HONTE" = "Tableau 3.46 : Répartition des PVVIH estimant avoir honte d'avoir le VIH",
+  "OPIN_INUTILE" = "Tableau 3.47 : Répartition des PVVIH s'estimant parfois inutile du fait de leur séropositivité",
+  "OPIN_CACHE_SEROP" = "Tableau 3.48 : Répartition des PVVIH cachant leur séropositivité aux gens",
+  
+  # Section 4 : Traitement et adhésion thérapeutique (4.1-4.25)
+  "DUREE_TTT" = "Tableau 4.1 : Durée de traitement",
+  "AUTRES_TTT" = "Tableau 4.2 : Répartition des PVVIH prenant d'autres médicaments pour traiter une pathologie chronique (Diabète, HTA, etc.) en dehors du traitement ARV",
+  "PHYTOTHERAPIE" = "Tableau 4.3 : Répartition des PVVIH ayant recours aux médicaments traditionnels ou phytomédicaments en plus de leurs médicaments conventionnels",
+  "DUREE_OUBLI_TTT" = "Tableau 4.4 : Répartition des PVVIH selon la durée de leur oubli de prendre leurs médicaments contre le VIH pendant au moins un jour au cours des 12 derniers mois",
+  "ADHERENCE_S_SCORE_1" = "Tableau 4.5 : Score 1",
+  "FREQUENCE_OUBLI" = "Tableau 4.6 : Répartition des PVVIH selon la fréquence à laquelle ils trouvent difficile de se rappeler de leur prise de médicaments contre le VIH au cours des 12 derniers mois",
+  "ADHERENCE_S_SCORE_2" = "Tableau 4.7 : Score 2",
+  "FREQUENCE_PRISE_TTT" = "Tableau 4.8 : Répartition des PVVIH selon la fréquence à laquelle ils ont pris leurs médicaments plus de 6 heures après l'heure prévue, au cours des 12 derniers mois",
+  "ADHERENCE_S_SCORE_3" = "Tableau 4.9 : Score 3",
+  "SCORE_SUBJECTIF" = "Tableau 4.10 : Score subjectif",
+  "ADHERENCE_SUBJECTIVE" = "Tableau 4.11 : Répartition des PVVIH selon l'adhérence subjective",
+  "PTS_ADHERENCE_SUBJECT" = "Tableau 4.12 : Répartition des patients selon les points d'observance subjective",
+  "SUIVI_CV_12M" = "Tableau 4.13 : Répartition des PVVIH selon le résultat de leur charge virale au cours des 12 derniers mois",
+  "ADHERENCE_OBJECTIVE" = "Tableau 4.14 : Répartition des PVVIH selon l'adhérence objective",
+  "PTS_ADHERENCE_OBJECTIVE" = "Tableau 4.15 : Répartition des PVVIH selon les points observance objective",
+  "SCORE_OBSERVANCE_GLOB" = "Tableau 4.16 : Répartition des PVVIH selon le Score observance globale",
+  "OBSERVANCE_GLOBALE" = "Tableau 4.17 : Répartition des PVVIH selon l'Observance globale",
+  "RAISON1_PEUR_DECOUV_STAT" = "Tableau 4.18 : Répartition des PVVIH craignant que quelqu'un découvre leur statut VIH",
+  "RAISON1_CRAINT_PROFSAN" = "Tableau 4.19 : Répartition des PVVIH craignant un mauvais traitement de la part des professionnels de la santé",
+  "RAISON1_REFUS_TTT" = "Tableau 4.20 : Répartition des PVVIH qui ont accusé un refus de traitement contre le VIH en raison de leur consommation actuelle de drogue",
+  "RAISON1_PAS_PRET" = "Tableau 4.21 : Répartition des PVVIH estimant ne pas être prêts à faire face à leur infection VIH",
+  "RAISON2_EFF_SECOND" = "Tableau 4.22 : Répartition des PVVIH ayant présenté des effets secondaires qui ont influencé leur capacité à prendre leurs médicaments au cours des 6 derniers mois",
+  "RAISON2_PB_APPRO_ARV" = "Tableau 4.23 : Répartition des PVVIH ayant présenté des difficultés d'approvisionnement en ARV",
+  "RAISON2_OUBLI" = "Tableau 4.24 : Répartition des PVVIH manifestant des oublis sans raison",
+  "RAISON2_MANQ_INFO" = "Tableau 4.25 : Répartition des PVVIH manquant d'informations sur leur traitement",
+  "RAISON2_DIFF_ACCES_TTT" = "Tableau 4.26 : Répartition des PVVIH présentant des difficultés liées à la distance ou à d'accès au centre de traitement",
+  "RAISON2_FACT_PSYCHO" = "Tableau 4.27 : Répartition des PVVIH présentant des facteurs psychologiques et émotionnels",
+  "RAISON2_POLYMEDICATION" = "Tableau 4.28 : Répartition des PVVIH estimant avoir trop de comprimés ou de gélules à prendre",
+  "RAISONS_AUTRES" = "Tableau 4.29 : Liste des autres raisons d'oublis ou irrégularités au cours des 12 derniers mois",
+  
+  # Tableaux de synthèse
+  "SYNTHESE_EXCLUSION" = "Tableau S.1 : Synthèse des expériences d'exclusion sociale",
+  "SYNTHESE_STIGMA_SANTE" = "Tableau S.2 : Synthèse de la stigmatisation dans les services de santé"
+)
+
+# Fonctions utilitaires
+get_var_label <- function(var_name) {
+  label <- var_labels[[var_name]]
+  if(is.null(label)) return(var_name)
+  return(label)
+}
+
+get_tableau_title <- function(var_name) {
+  title <- tableau_titles[[var_name]]
+  if(is.null(title)) {
+    return(paste("Tableau :", get_var_label(var_name)))
+  }
+  return(title)
+}
+
+# Fonction pour créer des tableaux compatibles Word avec kable
+create_word_table <- function(data, var_name, add_total = TRUE) {
+  tableau_title <- get_tableau_title(var_name)
+  
+  if(is.factor(data[[var_name]]) || is.character(data[[var_name]])) {
+    # Variable catégorielle
+    table_data <- data %>%
+      count(.data[[var_name]], name = "Effectif") %>%
+      mutate(
+        Pourcentage = paste0(format_number(100 * .data$Effectif / sum(.data$Effectif), 1), " %")
+      ) %>%
+      rename(Modalité = 1)
+    
+    # Remplacer les valeurs manquantes
+    table_data$Modalité[is.na(table_data$Modalité)] <- "Non renseigné"
+    
+    # Ajouter une ligne de total si demandé
+    if(add_total) {
+      total_row <- data.frame(
+        Modalité = "**TOTAL**",
+        Effectif = sum(table_data$Effectif),
+        Pourcentage = "**100,0 %**"
+      )
+      names(total_row) <- names(table_data)
+      table_data <- rbind(table_data, total_row)
+    }
+    
+    # Afficher le tableau avec titre
+    # cat("**", tableau_title, "**\n\n")
+    # print(knitr::kable(table_data, booktabs = TRUE, linesep = "", align = c("l", "r", "r")))
+    # cat("\n\n")
+
+    cat(paste0("**", tableau_title, "**\n\n"))
+    knitr::kable(
+    table_data,
+    align = c("l", "r", "r"),
+    booktabs = TRUE,     # Bordures fines, sans lignes verticales
+    linesep = "",        # Pas de lignes entre les observations
+    ) |> 
+    print()
+    cat("\n\n")
+    cat("<br><br><br>\n\n")
+    
+  } else {
+    # Variable numérique
+    stats_data <- data %>% 
+      summarise(
+        N = sum(!is.na(.data[[var_name]])),
+        Moyenne = format_number(mean(.data[[var_name]], na.rm = TRUE), 2),
+        Médiane = format_number(median(.data[[var_name]], na.rm = TRUE), 2),
+        `Écart-type` = format_number(sd(.data[[var_name]], na.rm = TRUE), 2),
+        Minimum = min(.data[[var_name]], na.rm = TRUE),
+        Maximum = max(.data[[var_name]], na.rm = TRUE)
+      )
+    
+    # Transformer en format long
+    stats_long <- data.frame(
+      Statistique = names(stats_data),
+      Valeur = as.character(unlist(stats_data[1,]))
+    )
+    
+    cat(paste0("**", tableau_title, "**\n\n"))
+    print(knitr::kable(stats_long, align = c("l", "r")))
+    cat("\n\n")
+    cat("<br><br><br>\n\n")
+  }
+}
+```
+
+# Présentation de l'étude
+
+Cette analyse descriptive complète porte sur l'enquête de stigmatisation liée au VIH/SIDA menée auprès du personnel des Forces Armées de Côte d'Ivoire en 2025, suivant le plan d'analyse officiel.
+
+```{r load-data}
+# Charger le dataset nettoyé
+load("donnees_nettoyees.RData")
+```
+
+**Informations générales :**
+
+- Nombre de participants : `r nrow(data)`
+- Nombre de variables : `r ncol(data)`  
+- Période de collecte : Juillet à Octobre 2025
+
+# Section 1 : Caractéristiques socio-démographiques
+
+```{r section1, results='asis'}
+# Répartition des PVVIH par Région Militaire
+if("REGION_MILITAIRE" %in% names(data)) {
+  create_word_table(data, "REGION_MILITAIRE")
+}
+
+# Répartition des PVVIH par Site
+if("SITE" %in% names(data)) {
+  create_word_table(data, "SITE")
+}
+
+# Répartition des PVVIH par sexe
+if("SEXE" %in% names(data)) {
+  create_word_table(data, "SEXE")
+}
+
+# Age
+if("AGE" %in% names(data)) {
+  create_word_table(data, "AGE")
+}
+
+# Répartition des PVVIH selon les classes d'âges
+if("CLASSES_AGE" %in% names(data)) {
+  create_word_table(data, "CLASSES_AGE")
+}
+
+# Répartition des PVVIH selon le niveau d'éducation
+if("NIV_EDUC" %in% names(data)) {
+  create_word_table(data, "NIV_EDUC")
+}
+
+# Nombre moyen de personnes à charge vivant dans le ménage
+if("NB_PERS_CHARGE" %in% names(data)) {
+  create_word_table(data, "NB_PERS_CHARGE")
+}
+
+# Répartition des PVVIH selon la catégorie
+if("CATEGORIE" %in% names(data)) {
+  create_word_table(data, "CATEGORIE")
+}
+
+# Répartition des PVVIH selon la situation professionnelle
+if("SITUATION_PROF" %in% names(data)) {
+  create_word_table(data, "SITUATION_PROF")
+}
+
+# Répartition des PVVIH selon le temps de travail
+if("TEMPS_TRAVAIL" %in% names(data)) {
+  create_word_table(data, "TEMPS_TRAVAIL")
+}
+
+# Répartition des PVVIH selon leur situation de relation intime/sexuelle actuelle
+if("REL_INTIME_ACTU" %in% names(data)) {
+  create_word_table(data, "REL_INTIME_ACTU")
+}
+
+# Répartition des PVVIH selon leur connaissance du statut sérologique de leurs partenaires
+if("PARTENAIRE_PVVIH" %in% names(data)) {
+  create_word_table(data, "PARTENAIRE_PVVIH")
+}
+
+# Répartition des PVVIH selon leur appartenance à un groupe de soutien
+if("GRP_SOUTIEN_VIH" %in% names(data)) {
+  create_word_table(data, "GRP_SOUTIEN_VIH")
+}
+
+# Répartition des patients selon leur incapacité à combler des besoins fondamentaux
+if("BESOINS_FOND" %in% names(data)) {
+  create_word_table(data, "BESOINS_FOND")
+}
+```
+
+# Section 2 : Interactions avec les services de soins de santé concernant le dépistage et le suivi médical
+
+```{r section2, results='asis'}
+# Répartition des PVVIH selon le choix de décision de dépistage VIH
+if("DECISION_DEPIST" %in% names(data)) {
+  create_word_table(data, "DECISION_DEPIST")
+}
+
+# Répartition des PVVIH selon la raison principale pour laquelle un test de dépistage du VIH a été réalisé
+if("RAISON_PRINC" %in% names(data)) {
+  create_word_table(data, "RAISON_PRINC")
+}
+
+# Répartition des PVVIH selon leur appréhension à se faire dépister par peur des réactions des autres
+if("HESITATION_DEPIST" %in% names(data)) {
+  create_word_table(data, "HESITATION_DEPIST")
+}
+
+# Répartition des PVVIH selon le délai avant le début du traitement (antirétroviral)
+if("DELAI_DEBUT_TTT" %in% names(data)) {
+  create_word_table(data, "DELAI_DEBUT_TTT")
+}
+
+# Répartition des PVVIH selon leur accès à la charge virale au cours des 12 derniers mois
+if("ACCES_CV_12M" %in% names(data)) {
+  create_word_table(data, "ACCES_CV_12M")
+}
+
+# Répartition des PVVIH selon leur appréciation de leur état de santé actuel
+if("IMPR_ETAT_SANTE" %in% names(data)) {
+  create_word_table(data, "IMPR_ETAT_SANTE")
+}
+
+# Répartition des PVVIH ayant reçu un diagnostic de tuberculose au cours des 12 derniers mois
+if("DIAG_TB" %in% names(data)) {
+  create_word_table(data, "DIAG_TB")
+}
+
+# Répartition des PVVIH ayant reçu un diagnostic d'hépatite virale au cours des 12 derniers mois
+if("DIAG_HV" %in% names(data)) {
+  create_word_table(data, "DIAG_HV")
+}
+
+# Répartition des PVVIH ayant reçu un diagnostic d'infections sexuellement transmissibles au cours des 12 derniers mois
+if("DIAG_IST" %in% names(data)) {
+  create_word_table(data, "DIAG_IST")
+}
+
+# Répartition des PVVIH ayant reçu un diagnostic de trouble de santé mentale au cours des 12 derniers mois
+if("DIAG_TB_MENT" %in% names(data)) {
+  create_word_table(data, "DIAG_TB_MENT")
+}
+
+# Répartition des PVVIH ayant reçu un diagnostic de maladie(s) non transmissible(s) au cours des 12 derniers mois
+if("DIAG_MNT" %in% names(data)) {
+  create_word_table(data, "DIAG_MNT")
+}
+
+# Répartition des PVVIH ayant reçu un diagnostic d'infections opportunistes au cours des 12 derniers mois
+if("DIAG_IOP" %in% names(data)) {
+  create_word_table(data, "DIAG_IOP")
+}
+
+# Répartition des PVVIH ayant reçu un diagnostic de syndromes de dépendance à l'alcool ou aux drogues au cours des 12 derniers mois
+if("DIAG_ALC_DRG" %in% names(data)) {
+  create_word_table(data, "DIAG_ALC_DRG")
+}
+
+# Répartition des PVVIH dont les affections diagnostiquées ont été prises en charge
+if("DIAG_PEC" %in% names(data)) {
+  create_word_table(data, "DIAG_PEC")
+}
+
+# Répartition des PVVIH ayant cherché à obtenir des soins de santé pour des besoins non liés au VIH
+if("SOINS_NON_VIH" %in% names(data)) {
+  create_word_table(data, "SOINS_NON_VIH")
+}
+
+# Répartition des PVVIH selon l'endroit habituel de leurs soins et traitements pour le VIH
+if("SITE_PEC_VIH" %in% names(data)) {
+  create_word_table(data, "SITE_PEC_VIH")
+}
+```
+
+## Accès aux services
+
+```{r section2-services, results='asis'}
+# Répartition des PVVIH pouvant accéder aux services de traitement du VIH sur leur site de prise en charge
+if("SERV_TTT" %in% names(data)) {
+  create_word_table(data, "SERV_TTT")
+}
+
+# Répartition des PVVIH pouvant accéder aux services d'informations sur le VIH sur leur site de prise en charge
+if("SERV_INFO" %in% names(data)) {
+  create_word_table(data, "SERV_INFO")
+}
+
+# Répartition des PVVIH pouvant accéder aux services de soins et de dépistage du VIH sur leur site de prise en charge
+if("SERV_DEP" %in% names(data)) {
+  create_word_table(data, "SERV_DEP")
+}
+
+# Répartition des PVVIH pouvant accéder aux services de Soutien par les pairs (groupes) sur leur site de prise en charge
+if("SERV_SOUTIEN" %in% names(data)) {
+  create_word_table(data, "SERV_SOUTIEN")
+}
+
+# Répartition des PVVIH pouvant accéder aux services et produits de prévention sur leur site de prise en charge
+if("SERV_PREV" %in% names(data)) {
+  create_word_table(data, "SERV_PREV")
+}
+
+# Répartition des PVVIH pouvant accéder aux services de conseil en matière d'adhésion au traitement sur leur site de prise en charge
+if("SERV_CONSEIL" %in% names(data)) {
+  create_word_table(data, "SERV_CONSEIL")
+}
+
+# Répartition des PVVIH pouvant accéder aux services de gestion des dossiers sur leur site de prise en charge
+if("SERV_DOSSIERS" %in% names(data)) {
+  create_word_table(data, "SERV_DOSSIERS")
+}
+```
+
+# Section 3 : Expérience de stigmatisation et de discrimination
+
+## Exclusions
+
+```{r section3-exclusions, results='asis'}
+# Répartition des PVVIH ayant déjà été exclus des activités ou rencontres sociales
+if("EXCL_ACT_SOCIAL" %in% names(data)) {
+  create_word_table(data, "EXCL_ACT_SOCIAL")
+}
+
+# Répartition des PVVIH ayant déjà été exclus des activités religieuses ou de lieux de culte
+if("EXCL_ACT_RELIG" %in% names(data)) {
+  create_word_table(data, "EXCL_ACT_RELIG")
+}
+
+# Répartition des PVVIH ayant déjà été exclus des activités familiales
+if("EXCL_ACT_FAML" %in% names(data)) {
+  create_word_table(data, "EXCL_ACT_FAML")
+}
+
+# Répartition des PVVIH ayant déjà eu connaissance de remarques discriminatoires ou de commérages à son sujet de la part de membres de sa famille
+if("EXCL_CRIT_FAM" %in% names(data)) {
+  create_word_table(data, "EXCL_CRIT_FAM")
+}
+
+# Répartition des PVVIH ayant déjà eu connaissance de remarques discriminatoires ou de commérages à leur sujet de la part d'autres personnes
+if("EXCL_CRIT_AUTRES" %in% names(data)) {
+  create_word_table(data, "EXCL_CRIT_AUTRES")
+}
+
+# Répartition des PVVIH ayant déjà été harcelés verbalement
+if("EXCL_HARCEL_VERB" %in% names(data)) {
+  create_word_table(data, "EXCL_HARCEL_VERB")
+}
+
+# Répartition des PVVIH ayant déjà été victime de chantage
+if("EXCL_CHANTAGE" %in% names(data)) {
+  create_word_table(data, "EXCL_CHANTAGE")
+}
+
+# Répartition des PVVIH ayant déjà été harcelés ou blessés physiquement
+if("EXCL_HARC_PHYS" %in% names(data)) {
+  create_word_table(data, "EXCL_HARC_PHYS")
+}
+
+# Répartition des PVVIH ayant déjà été victime de refus d'un emploi ou a déjà perdu une source de revenus ou un travail
+if("EXCL_REFUS_EMPLOI" %in% names(data)) {
+  create_word_table(data, "EXCL_REFUS_EMPLOI")
+}
+
+# Répartition des PVVIH ayant déjà été victimes de changement de description de leur poste ou de la nature de leur travail
+if("EXCL_TRAVAIL_POSTE" %in% names(data)) {
+  create_word_table(data, "EXCL_TRAVAIL_POSTE")
+}
+
+# Répartition des PVVIH ayant déjà été victimes de discrimination subie de la part du /de la conjoint(e)
+if("EXCL_DISCR_CONJ_ENFTS" %in% names(data)) {
+  create_word_table(data, "EXCL_DISCR_CONJ_ENFTS")
+}
+```
+
+## Expériences de stigmatisation ou de discrimination de la part du personnel santé
+
+```{r section3-stigma-personnel, results='asis'}
+# Répartition des PVVIH ayant déjà vécu un refus de services de santé par le personnel de santé
+if("STIG_SERV_SAN_REFUS" %in% names(data)) {
+  create_word_table(data, "STIG_SERV_SAN_REFUS")
+}
+
+# Répartition des PVVIH ayant déjà été conseillés par le personnel de santé de ne pas avoir de relations sexuelles
+if("STIG_PAS_RAPPORT" %in% names(data)) {
+  create_word_table(data, "STIG_PAS_RAPPORT")
+}
+
+# Répartition des PVVIH ayant déjà été victime de critiques et commérages par le personnel de santé
+if("STIG_CRIT" %in% names(data)) {
+  create_word_table(data, "STIG_CRIT")
+}
+
+# Répartition des PVVIH ayant déjà été victimes de violence verbale par le personnel de santé
+if("STIG_VIOLEN_VERB" %in% names(data)) {
+  create_word_table(data, "STIG_VIOLEN_VERB")
+}
+
+# Répartition des PVVIH ayant déjà été victimes de violence physique par le personnel de santé
+if("STIG_VIOLEN_PHYS" %in% names(data)) {
+  create_word_table(data, "STIG_VIOLEN_PHYS")
+}
+
+# Répartition des PVVIH ayant déjà vécu une expérience dans laquelle le personnel de santé refusait tout contact physique
+if("STIG_CONTACT_PHYS" %in% names(data)) {
+  create_word_table(data, "STIG_CONTACT_PHYS")
+}
+
+# Répartition des PVVIH ayant déjà vécu une expérience dans laquelle le personnel de santé a parlé de leur séropositivité à d'autres personnes sans leur consentement
+if("STIG_INFO_SANS_CONS" %in% names(data)) {
+  create_word_table(data, "STIG_INFO_SANS_CONS")
+}
+
+# Répartition des PVVIH révélant habituellement leur statut sérologique en dehors de leur centre de prise en charge VIH
+if("REVEL_STATUT" %in% names(data)) {
+  create_word_table(data, "REVEL_STATUT")
+}
+```
+
+## Expériences vécues au cours des 12 derniers mois
+
+```{r section3-experiences-12m, results='asis'}
+# Répartition des PVVIH ayant au cours des 12 derniers mois vécu un refus des services de santé
+if("SANTE_REFUS_SERV" %in% names(data)) {
+  create_word_table(data, "SANTE_REFUS_SERV")
+}
+
+# Répartition des PVVIH ayant au cours des 12 derniers mois vécu un refus de soins dentaires
+if("SANTE_REFUS_DENT" %in% names(data)) {
+  create_word_table(data, "SANTE_REFUS_DENT")
+}
+
+# Répartition des PVVIH ayant au cours des 12 derniers mois été conseillés de ne pas avoir de relations sexuelles
+if("SANTE_EVITER_RAPPORT" %in% names(data)) {
+  create_word_table(data, "SANTE_EVITER_RAPPORT")
+}
+
+# Répartition des PVVIH ayant au cours des 12 derniers mois ayant été victimes de commentaires négatifs
+if("SANTE_COMMEN_NEG" %in% names(data)) {
+  create_word_table(data, "SANTE_COMMEN_NEG")
+}
+
+# Répartition des PVVIH ayant au cours des 12 derniers mois été victimes de violence verbale par le personnel de santé
+if("SANTE_VIOLEN_VERB" %in% names(data)) {
+  create_word_table(data, "SANTE_VIOLEN_VERB")
+}
+
+# Répartition des PVVIH ayant au cours des 12 derniers mois été victimes de violence physique par le personnel de santé
+if("SANTE_VIOLEN_PHYS" %in% names(data)) {
+  create_word_table(data, "SANTE_VIOLEN_PHYS")
+}
+
+# Répartition des PVVIH ayant au cours des 12 derniers mois vécu une expérience dans laquelle le personnel de santé refusait tout contact physique
+if("SANTE_ABS_CONTACT" %in% names(data)) {
+  create_word_table(data, "SANTE_ABS_CONTACT")
+}
+
+# Répartition des PVVIH ayant au cours des 12 derniers mois vécu une expérience dans laquelle le personnel de santé a parlé de leur séropositivité à d'autres personnes sans leur consentement
+if("SANTE_DIVUL_STATUT" %in% names(data)) {
+  create_word_table(data, "SANTE_DIVUL_STATUT")
+}
+
+# Répartition des PVVIH ayant déjà vécu une expérience de stigmatisation ou de discrimination liée à leur statut
+if("VECU_STIGMA" %in% names(data)) {
+  create_word_table(data, "VECU_STIGMA")
+}
+```
+
+## Ressenti en rapport avec statut sérologique
+
+```{r section3-ressenti, results='asis'}
+# Répartition des PVVIH par rapport à leur ressenti vis-à-vis de la confiance en soi
+if("RESS_CONF_SOI" %in% names(data)) {
+  create_word_table(data, "RESS_CONF_SOI")
+}
+
+# Répartition des PVVIH par rapport à leur ressenti vis-à-vis du respect pour eux-mêmes
+if("RESS_RESPECT_MOI" %in% names(data)) {
+  create_word_table(data, "RESS_RESPECT_MOI")
+}
+
+# Répartition des PVVIH par rapport à leur ressenti vis-à-vis de leur capacité à respecter les autres
+if("RESS_RESPECT_AUTRES" %in% names(data)) {
+  create_word_table(data, "RESS_RESPECT_AUTRES")
+}
+
+# Répartition des PVVIH par rapport à leur ressenti vis-à-vis de leur capacité à composer avec le stress
+if("RESS_GEST_STRESS" %in% names(data)) {
+  create_word_table(data, "RESS_GEST_STRESS")
+}
+
+# Répartition des PVVIH par rapport à leur ressenti vis-à-vis de leur capacité à trouver l'amour
+if("RESS_TRV_AMOUR" %in% names(data)) {
+  create_word_table(data, "RESS_TRV_AMOUR")
+}
+
+# Répartition des PVVIH par rapport à leur ressenti vis-à-vis de la réalisation de leurs objectifs personnels et/ou professionnels
+if("RESS_REAL_OBJ" %in% names(data)) {
+  create_word_table(data, "RESS_REAL_OBJ")
+}
+
+# Répartition des PVVIH par rapport à leur ressenti vis-à-vis de leur capacité de contribuer à leur communauté
+if("RESS_CAP_CONTRIB_COMM" %in% names(data)) {
+  create_word_table(data, "RESS_CAP_CONTRIB_COMM")
+}
+
+# Répartition des PVVIH par rapport à leur ressenti vis-à-vis de leur capacité à pratiquer une religion
+if("RESS_PRAT_RELIGION" %in% names(data)) {
+  create_word_table(data, "RESS_PRAT_RELIGION")
+}
+```
+
+## Expérience de stigmatisation intériorisée
+
+```{r section3-stigma-interiorisee, results='asis'}
+# Répartition des PVVIH ayant choisi de ne pas participer à des rencontres sociales
+if("CHOIX_PAS_RENC" %in% names(data)) {
+  create_word_table(data, "CHOIX_PAS_RENC")
+}
+
+# Répartition des PVVIH ayant évité de se rendre dans un centre de santé ou un hôpital au moment où ils en avaient besoin
+if("CHOIX_EVITER_HOPI" %in% names(data)) {
+  create_word_table(data, "CHOIX_EVITER_HOPI")
+}
+
+# Répartition des PVVIH ayant choisi de ne pas postuler un ou des emploi(s)
+if("CHOIX_PAS_POSTU_EMPL" %in% names(data)) {
+  create_word_table(data, "CHOIX_PAS_POSTU_EMPL")
+}
+
+# Répartition des PVVIH ayant choisi de ne pas recourir à du soutien social
+if("CHOIX_PAS_SOUTIEN_SOCIAL" %in% names(data)) {
+  create_word_table(data, "CHOIX_PAS_SOUTIEN_SOCIAL")
+}
+
+# Répartition des PVVIH ayant décidé de s'isoler de leur famille et/ou de leurs amis
+if("CHOIX_EVITER_FAM_AMIS" %in% names(data)) {
+  create_word_table(data, "CHOIX_EVITER_FAM_AMIS")
+}
+
+# Répartition des PVVIH ayant décidé de ne pas avoir de relations sexuelles
+if("CHOIX_PAS_SEXE" %in% names(data)) {
+  create_word_table(data, "CHOIX_PAS_SEXE")
+}
+```
+
+## Opinion sur les comportements de stigmatisation intériorisée
+
+```{r section3-opinions, results='asis'}
+# Répartition des PVVIH estimant que parler de leur séropositivité aux gens leur est difficile
+if("OPIN_DIF_PARLER_SEROP" %in% names(data)) {
+  create_word_table(data, "OPIN_DIF_PARLER_SEROP")
+}
+
+# Répartition des PVVIH estimant qu'avoir le VIH leur donne l'impression d'être sale
+if("OPIN_ETRE_SALE" %in% names(data)) {
+  create_word_table(data, "OPIN_ETRE_SALE")
+}
+
+# Répartition des PVVIH se sentant coupable d'avoir le VIH
+if("OPIN_COUPABLE" %in% names(data)) {
+  create_word_table(data, "OPIN_COUPABLE")
+}
+
+# Répartition des PVVIH estimant avoir honte d'avoir le VIH
+if("OPIN_HONTE" %in% names(data)) {
+  create_word_table(data, "OPIN_HONTE")
+}
+
+# Répartition des PVVIH s'estimant parfois inutile du fait de leur séropositivité
+if("OPIN_INUTILE" %in% names(data)) {
+  create_word_table(data, "OPIN_INUTILE")
+}
+
+# Répartition des PVVIH cachant leur séropositivité aux gens
+if("OPIN_CACHE_SEROP" %in% names(data)) {
+  create_word_table(data, "OPIN_CACHE_SEROP")
+}
+```
+
+# Section 4 : Traitement et adhésion thérapeutique
+
+```{r section4-traitement, results='asis'}
+# Durée de traitement
+if("DUREE_TTT" %in% names(data)) {
+  create_word_table(data, "DUREE_TTT")
+  
+  # Graphique de la durée de traitement
+  if(any(!is.na(data$DUREE_TTT))) {
+    cat("**Distribution de la durée du traitement ARV**\n\n")
+    
+    duree_plot <- ggplot(data, aes(x = DUREE_TTT)) +
+      geom_histogram(bins = 20, fill = "steelblue", alpha = 0.7, color = "black") +
+      labs(
+        title = "Distribution de la durée du traitement ARV",
+        x = "Durée (mois)",
+        y = "Effectif"
+      ) +
+      theme_minimal() +
+      theme(
+        plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
+        axis.title = element_text(size = 12),
+        axis.text = element_text(size = 10)
+      )
+    
+    print(duree_plot)
+  }
+}
+
+# Répartition des PVVIH prenant d'autres médicaments pour traiter une pathologie chronique
+if("AUTRES_TTT" %in% names(data)) {
+  create_word_table(data, "AUTRES_TTT")
+}
+
+# Répartition des PVVIH ayant recours aux médicaments traditionnels ou phytomédicaments
+if("PHYTOTHERAPIE" %in% names(data)) {
+  create_word_table(data, "PHYTOTHERAPIE")
+}
+```
+
+## Évaluation subjective de l'adhésion au traitement
+
+```{r section4-adherence-subjective, results='asis'}
+# Répartition des PVVIH selon la durée de leur oubli de prendre leurs médicaments contre le VIH
+if("DUREE_OUBLI_TTT" %in% names(data)) {
+  create_word_table(data, "DUREE_OUBLI_TTT")
+}
+
+# Score 1
+if("ADHERENCE_S_SCORE_1" %in% names(data)) {
+  create_word_table(data, "ADHERENCE_S_SCORE_1")
+}
+
+# Répartition des PVVIH selon la fréquence à laquelle ils trouvent difficile de se rappeler de leur prise de médicaments
+if("FREQUENCE_OUBLI" %in% names(data)) {
+  create_word_table(data, "FREQUENCE_OUBLI")
+}
+
+# Score 2
+if("ADHERENCE_S_SCORE_2" %in% names(data)) {
+  create_word_table(data, "ADHERENCE_S_SCORE_2")
+}
+
+# Répartition des PVVIH selon la fréquence à laquelle ils ont pris leurs médicaments plus de 6 heures après l'heure prévue
+if("FREQUENCE_PRISE_TTT" %in% names(data)) {
+  create_word_table(data, "FREQUENCE_PRISE_TTT")
+}
+
+# Score 3
+if("ADHERENCE_S_SCORE_3" %in% names(data)) {
+  create_word_table(data, "ADHERENCE_S_SCORE_3")
+}
+
+# Score subjectif
+if("SCORE_SUBJECTIF" %in% names(data)) {
+  create_word_table(data, "SCORE_SUBJECTIF")
+}
+
+# Répartition des PVVIH selon l'adhérence subjective
+if("ADHERENCE_SUBJECTIVE" %in% names(data)) {
+  create_word_table(data, "ADHERENCE_SUBJECTIVE")
+}
+
+# Répartition des patients selon les points d'observance subjective
+if("PTS_OBSERVANCE_SUBJECT" %in% names(data)) {
+  create_word_table(data, "PTS_OBSERVANCE_SUBJECT")
+}
+```
+
+## Évaluation objective de l'adhésion au traitement
+
+```{r section4-adherence-objective, results='asis'}
+# Répartition des PVVIH selon le résultat de leur charge virale au cours des 12 derniers mois
+if("SUIVI_CV_12M" %in% names(data)) {
+  create_word_table(data, "SUIVI_CV_12M")
+}
+
+# Répartition des PVVIH selon l'adhérence objective
+if("ADHERENCE_OBJECTIVE" %in% names(data)) {
+  create_word_table(data, "ADHERENCE_OBJECTIVE")
+}
+
+# Répartition des PVVIH selon les points observance objective
+if("PTS_OBSERVANCE_OBJECTIVE" %in% names(data)) {
+  create_word_table(data, "PTS_OBSERVANCE_OBJECTIVE")
+}
+```
+
+## Observance globale
+
+```{r section4-observance-globale, results='asis'}
+# Répartition des PVVIH selon le Score observance globale
+if("SCORE_OBSERVANCE_GLOB" %in% names(data)) {
+  create_word_table(data, "SCORE_OBSERVANCE_GLOB")
+}
+
+# Répartition des PVVIH selon l'Observance globale
+if("OBSERVANCE_GLOBALE" %in% names(data)) {
+  create_word_table(data, "OBSERVANCE_GLOBALE")
+}
+```
+
+## Raisons des oublis ou irrégularités au cours des 12 derniers mois liées à la stigmatisation
+
+```{r section4-raisons-stigma, results='asis'}
+# Répartition des PVVIH craignant que quelqu'un découvre leur statut VIH
+if("RAISON1_PEUR_DECOUV_STAT" %in% names(data)) {
+  create_word_table(data, "RAISON1_PEUR_DECOUV_STAT")
+}
+
+# Répartition des PVVIH craignant un mauvais traitement de la part des professionnels de la santé
+if("RAISON1_CRAINT_PROFSANTE" %in% names(data)) {
+  create_word_table(data, "RAISON1_CRAINT_PROFSANTE")
+}
+
+# Répartition des PVVIH qui ont accusé un refus de traitement contre le VIH
+if("RAISON1_REFUS_TTT" %in% names(data)) {
+  create_word_table(data, "RAISON1_REFUS_TTT")
+}
+
+# Répartition des PVVIH estimant ne pas être prêts à faire face à leur infection VIH
+if("RAISON1_PAS_PRET" %in% names(data)) {
+  create_word_table(data, "RAISON1_PAS_PRET")
+}
+```
+
+## Raisons des oublis ou irrégularités au cours des 12 derniers mois non liées à la stigmatisation
+
+```{r section4-raisons-non-stigma, results='asis'}
+# Répartition des PVVIH ayant présenté des effets secondaires
+if("RAISON2_EFF_SECOND" %in% names(data)) {
+  create_word_table(data, "RAISON2_EFF_SECOND")
+}
+
+# Répartition des PVVIH ayant présenté des difficultés d'approvisionnement en ARV
+if("RAISON2_PB_APPRO_ARV" %in% names(data)) {
+  create_word_table(data, "RAISON2_PB_APPRO_ARV")
+}
+
+# Répartition des PVVIH manifestant des oublis sans raison
+if("RAISON2_OUBLI" %in% names(data)) {
+  create_word_table(data, "RAISON2_OUBLI")
+}
+
+# Répartition des PVVIH manquant d'informations sur leur traitement
+if("RAISON2_MANQ_INFO" %in% names(data)) {
+  create_word_table(data, "RAISON2_MANQ_INFO")
+}
+
+# Répartition des PVVIH présentant des difficultés liées à la distance ou à d'accès au centre de traitement
+if("RAISON2_DIFF_ACCES_TTT" %in% names(data)) {
+  create_word_table(data, "RAISON2_DIFF_ACCES_TTT")
+}
+
+# Répartition des PVVIH présentant des facteurs psychologiques et émotionnels
+if("RAISON2_FACT_PSYCHO" %in% names(data)) {
+  create_word_table(data, "RAISON2_FACT_PSYCHO")
+}
+
+# Répartition des PVVIH estimant avoir trop de comprimés ou de gélules à prendre
+if("RAISON2_POLYMEDICATION" %in% names(data)) {
+  create_word_table(data, "RAISON2_POLYMEDICATION")
+}
+
+# Liste des autres raisons d'oublis ou irrégularités au cours des 12 derniers mois
+if("RAISONS_AUTRES" %in% names(data)) {
+  create_word_table(data, "RAISONS_AUTRES")
+}
+```
+
+# Synthèse générale
+
+```{r synthese-finale, results='asis'}
+cat("**SYNTHÈSE GÉNÉRALE DE L'ENQUÊTE SELON LE PLAN D'ANALYSE**\n\n")
+
+cat("## Caractéristiques de l'échantillon\n")
+cat("- **Nombre de participants :** ", nrow(data), "\n")
+cat("- **Nombre total de variables :** ", ncol(data), "\n")
+cat("- **Période de collecte :** Juillet à Octobre 2025\n\n")
+
+cat("## Section 1 : Profil sociodémographique\n")
+if("AGE" %in% names(data)) {
+  cat("- **Âge moyen :** ", format_number(mean(data$AGE, na.rm = TRUE), 1), " ans\n")
+  cat("- **Âge médian :** ", format_number(median(data$AGE, na.rm = TRUE), 1), " ans\n")
+}
+
+if("SEXE" %in% names(data)) {
+  femmes_pct <- format_number(100 * mean(data$SEXE == "Féminin", na.rm = TRUE), 1)
+  hommes_pct <- format_number(100 * mean(data$SEXE == "Masculin", na.rm = TRUE), 1)
+  cat("- **Proportion de femmes :** ", femmes_pct, "%\n")
+  cat("- **Proportion d'hommes :** ", hommes_pct, "%\n")
+}
+
+if("CATEGORIE" %in% names(data)) {
+  civil_pct <- format_number(100 * mean(data$CATEGORIE == "Civil", na.rm = TRUE), 1)
+  cat("- **Personnel civil :** ", civil_pct, "%\n")
+}
+
+cat("\n## Section 2 : Services de santé et dépistage\n")
+if("ACCES_CV_12M" %in% names(data)) {
+  acces_cv_pct <- format_number(100 * mean(data$ACCES_CV_12M == "Oui", na.rm = TRUE), 1)
+  cat("- **Accès à la charge virale (12 derniers mois) :** ", acces_cv_pct, "%\n")
+}
+
+cat("\n## Section 3 : Stigmatisation et discrimination\n")
+
+# Exclusion sociale
+excl_vars <- c("EXCL_ACT_SOCIAL", "EXCL_ACT_RELIG", "EXCL_ACT_FAML")
+for(var in excl_vars) {
+  if(var %in% names(data)) {
+    pct <- format_number(100 * mean(data[[var]] == "Oui", na.rm = TRUE), 1)
+    cat("- **", get_var_label(var), " :** ", pct, "%\n")
+  }
+}
+
+# Stigmatisation services de santé
+stigma_vars <- c("STIG_SERV_SAN_REFUS", "STIG_PAS_RAPPORT", "STIG_CRIT")
+for(var in stigma_vars) {
+  if(var %in% names(data)) {
+    pct <- format_number(100 * mean(data[[var]] == "Oui", na.rm = TRUE), 1)
+    cat("- **", get_var_label(var), " :** ", pct, "%\n")
+  }
+}
+
+cat("\n## Section 4 : Traitement et observance\n")
+if("DUREE_TTT" %in% names(data)) {
+  cat("- **Durée moyenne de traitement :** ", format_number(mean(data$DUREE_TTT, na.rm = TRUE), 1), " mois\n")
+  cat("- **Durée médiane :** ", format_number(median(data$DUREE_TTT, na.rm = TRUE), 1), " mois\n")
+}
+
+if("OBSERVANCE_GLOBALE" %in% names(data)) {
+  obs_bonne_pct <- format_number(100 * mean(data$OBSERVANCE_GLOBALE == "Bonne", na.rm = TRUE), 1)
+  cat("- **Bonne observance globale :** ", obs_bonne_pct, "%\n")
+}
+
+cat("\n## Couverture géographique\n")
+if("REGION_MILITAIRE" %in% names(data)) {
+  regions <- table(data$REGION_MILITAIRE)
+  cat("- **Nombre de régions représentées :** ", length(regions), "\n")
+  if("SITE" %in% names(data)) {
+    sites <- table(data$SITE)
+    cat("- **Nombre de sites de collecte :** ", length(sites), "\n")
+  }
+}
+
+cat("\n---\n")
+cat("**NOTE MÉTHODOLOGIQUE :**\n")
+cat("Cette analyse suit rigoureusement le plan d'analyse officiel de l'enquête,\n")
+cat("structurée en 4 sections principales :\n")
+cat("1. Caractéristiques socio-démographiques\n")
+cat("2. Interactions avec les services de soins de santé\n")
+cat("3. Expérience de stigmatisation et de discrimination\n")
+cat("4. Traitement et adhésion thérapeutique\n\n")
+
+cat("*Rapport généré le ", format(Sys.Date(), "%d/%m/%Y"), " par Dr YEBOUE Konan Maxime*\n")
+```
